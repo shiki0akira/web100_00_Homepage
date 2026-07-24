@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/zh-TW/",
+      "permanent": false
+    },
+    {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/avalon",
+      "destination": "/avalon/:lang",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/avalon/:path*",
+      "destination": "/avalon/:lang/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/avalon/:path*",
+      "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:path*"
+    },
+    {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/",
+      "destination": "/index.html"
+    }
+  ]
+}
