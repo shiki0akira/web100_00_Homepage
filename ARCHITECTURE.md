@@ -64,28 +64,15 @@ vibeweb100.com/game003/*         → 第 3 個專案
 
 ## 7. 共用設計代幣
 
-技術棧不同（React+Tailwind / 純 HTML+CSS+JS），無法直接共用元件庫，改為共用一份「規則」：
+技術棧不同（React+Tailwind / 純 HTML+CSS+JS），無法直接共用元件庫，改為共用一份「規則」。
 
-```css
-:root {
-  --color-bg: #0f172a;
-  --color-bg-card: #1e293b;
-  --color-text: #f1f5f9;
-  --color-text-muted: #94a3b8;
-  --color-accent: #6366f1;
-  --color-border: #334155;
-  --font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-size-h1: 2rem;
-  --font-size-h2: 1.5rem;
-  --font-size-body: 1rem;
-  --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.5rem;
-  --space-4: 2rem;
-  --radius: 0.75rem;
-  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
+**唯一來源是 `design-tokens.css`（這個 repo 根目錄），不要把變數複製貼到別的 repo。** 其他專案直接引用正式網址：
+
+```html
+<link rel="stylesheet" href="https://www.vibeweb100.com/design-tokens.css">
 ```
+
+要改配色/字級/間距，只改這一份檔案，全系列專案下次部署就會拿到最新值。目前只提供變數，不含選取器樣式規則；深色/淺色是一組 `-light` 後綴的平行變數，怎麼切換（class、data-attribute、prefers-color-scheme）由各專案自己決定——各專案目前的切換機制還不一致（Homepage 用 `body.light` 表示淺色、Avalon 的 Tailwind 用 `darkMode: 'class'` 表示深色），統一這件事留給之後設計 UI 系統時處理。
 
 共用元件規範：
 - 導覽列：左側 logo/系列名稱（連回首頁），右側放該專案自己的功能按鈕
