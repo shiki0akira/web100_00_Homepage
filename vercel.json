@@ -1,6 +1,14 @@
 {
   "version": 2,
+  "buildCommand": "node scripts/prerender.js",
+  "outputDirectory": "dist",
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "vibeweb100.com" }],
+      "destination": "https://www.vibeweb100.com/:path*",
+      "permanent": true
+    },
     {
       "source": "/",
       "destination": "/zh-TW/",
@@ -12,23 +20,66 @@
       "permanent": true
     },
     {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/avalon/",
+      "destination": "/avalon/:lang",
+      "permanent": true
+    },
+    {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/avalon/:path*",
       "destination": "/avalon/:lang/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/:page(game|rules)",
+      "destination": "/avalon/:lang/:page",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/:page(game|rules)/",
+      "destination": "/avalon/:lang/:page",
+      "permanent": true
+    },
+    {
+      "source": "/avalon/",
+      "destination": "/avalon/zh-TW",
+      "permanent": false
+    },
+    {
+      "source": "/avalon/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/",
+      "destination": "/avalon/:lang",
+      "permanent": true
+    },
+    {
+      "source": "/avalon/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/:path+/",
+      "destination": "/avalon/:lang/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)",
+      "destination": "/:lang/",
       "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/avalon-sitemap.xml",
+      "destination": "https://web100-01-avalon-voice.vercel.app/sitemap.xml"
+    },
+    {
+      "source": "/avalon/:path+/",
+      "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:path/"
+    },
     {
       "source": "/avalon/:path*",
       "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:path*"
     },
     {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)",
-      "destination": "/index.html"
+      "destination": "/:lang/index.html"
     },
     {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/",
-      "destination": "/index.html"
+      "destination": "/:lang/index.html"
     }
   ]
 }

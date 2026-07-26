@@ -1,6 +1,8 @@
 # web100_00_Homepage
 
-Web100 系列的作品集入口首頁。純 HTML/CSS/JS，沒有框架、沒有 build 步驟，部署在 Vercel，綁定正式網域 `www.vibeweb100.com`。
+Web100 系列的作品集入口首頁。純 HTML/CSS/JS、沒有框架，部署在 Vercel，綁定正式網域 `www.vibeweb100.com`。
+
+原始碼只有一份 `index.html`，但**部署前會經過一道 build**：`scripts/prerender.js` 讀取 `index.html` 裡的 `STRINGS`，為 18 種語言各產生一份 `dist/{lang}/index.html`，補上該語言的 `lang`、`title`、`description`、`canonical`、`hreflang`，並把 hero 與卡片文字直接填進 HTML。沒有這道 build 的話，所有語言會共用同一份中文 title 且內文全空，爬蟲看不到任何內容。`dist/` 不進版控，由 Vercel 建置時產生。
 
 ## 先讀這個
 
@@ -14,9 +16,11 @@ Web100 系列的作品集入口首頁。純 HTML/CSS/JS，沒有框架、沒有 
 ## 加新專案時要改的地方（例如加 `web100_02_BuzzerGame`）
 
 1. `index.html` 的 `STRINGS` 物件裡，每個語言都加上新專案的卡片文案（`xxxTitle`、`xxxDesc`、`xxxTag`）
-2. `vercel.json` 的 `rewrites` 加一條 `/buzzer/:path*` 代理規則（放在同類規則旁邊即可，語言判斷用的萬用規則在最後，不受影響）
-3. `sitemap.xml` 視需要補上新專案網址
+2. `scripts/prerender.js` 的替換規則加上對應的 `fill(...)`，新卡片的文字才會進到靜態 HTML。漏掉的話那張卡片對爬蟲來說是空的——replace 對不到位置時會直接讓 build 失敗，不會靜靜產出空頁面
+3. `vercel.json` 的 `rewrites` 加一條 `/buzzer/:path*` 代理規則（放在同類規則旁邊即可，語言判斷用的萬用規則在最後，不受影響）
 4. 更新 `ARCHITECTURE.md` 第 9 節的進度追蹤表
+
+`sitemap.xml` 不用手動維護，`prerender.js` 會依 `STRINGS` 的語言清單自動產生（含 hreflang）。
 
 ## 語言判斷邏輯
 

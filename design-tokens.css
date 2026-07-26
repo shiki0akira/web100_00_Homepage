@@ -1,0 +1,39 @@
+/*
+ * Web100 系列共用 design tokens，唯一來源。
+ * 任何專案都可以直接引用這份檔案，不要複製貼上內容到自己的 repo：
+ *   <link rel="stylesheet" href="https://www.vibeweb100.com/design-tokens.css">
+ * 或在 CSS 裡：
+ *   @import url("https://www.vibeweb100.com/design-tokens.css");
+ *
+ * 只提供變數，不含任何選取器樣式規則，讓純 CSS 專案和 Tailwind 專案都能用。
+ * 深色/淺色目前用一組「-light」後綴的平行變數表示（跟 Homepage 現行做法一致），
+ * 要用哪一組、怎麼切換（class、data-attribute、prefers-color-scheme）由各專案自己決定。
+ */
+
+:root {
+  --color-bg: #0f172a;
+  --color-bg-card: #1e293b;
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-accent: #6366f1;
+  --color-border: #334155;
+
+  --color-bg-light: #ffffff;
+  --color-bg-card-light: #f8fafc;
+  --color-text-light: #0f172a;
+  --color-text-muted-light: #64748b;
+  --color-border-light: #e2e8f0;
+
+  --font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-size-h1: 2rem;
+  --font-size-h2: 1.5rem;
+  --font-size-body: 1rem;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+
+  --radius: 0.75rem;
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
