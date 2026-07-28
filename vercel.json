@@ -10,6 +10,16 @@
       "permanent": true
     },
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(zh-TW|en|de|fr|ja|ko|pl|ru|vi|pt|it|nl|cs|sv|th|id|es|zh-CN)/index.html",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
       "source": "/",
       "destination": "/zh-TW/",
       "permanent": false
