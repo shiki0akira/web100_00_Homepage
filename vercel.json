@@ -4,9 +4,9 @@
   "outputDirectory": "dist",
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "vibeweb100.com" }],
-      "destination": "https://www.vibeweb100.com/:path*",
+      "destination": "https://www.vibeweb100.com/$1",
       "permanent": true
     },
     {
