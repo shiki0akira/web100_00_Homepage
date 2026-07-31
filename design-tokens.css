@@ -8,21 +8,81 @@
  * 只提供變數，不含任何選取器樣式規則，讓純 CSS 專案和 Tailwind 專案都能用。
  * 深色/淺色目前用一組「-light」後綴的平行變數表示（跟 Homepage 現行做法一致），
  * 要用哪一組、怎麼切換（class、data-attribute、prefers-color-scheme）由各專案自己決定。
+ *
+ * 色階與 Figma 變數庫同名（Primary / Secondary / Accent / Neutral），
+ * 匯入用的 JSON 是 figma-variables.json（放在 web100 工作目錄，不在這個 repo 裡）。
  */
 
 :root {
-  --color-bg: #0f172a;
-  --color-bg-card: #1e293b;
-  --color-text: #f1f5f9;
-  --color-text-muted: #94a3b8;
-  --color-accent: #6366f1;
-  --color-border: #334155;
+  /* ---- 色階（primitive，對應 Figma 的 Primary/Secondary/Accent/Neutral）---- */
+  --primary-900: #252c4b;
+  --primary-800: #474f80;
+  --primary-700: #6776b5;
+  --primary-600: #8799e9;
+  --primary-500: #9cb0f3;
+  --primary-400: #b8c6f8;
+  --primary-300: #d3dbf9;
+  --primary-200: #e9edfb;
 
-  --color-bg-light: #ffffff;
-  --color-bg-card-light: #f8fafc;
-  --color-text-light: #0f172a;
-  --color-text-muted-light: #64748b;
-  --color-border-light: #e2e8f0;
+  --secondary-900: #4d2b53;
+  --secondary-800: #855a8d;
+  --secondary-700: #ba82c4;
+  --secondary-600: #f3a4fb;
+  --secondary-500: #f7b9fd;
+  --secondary-400: #f8cafd;
+  --secondary-300: #faddfe;
+  --secondary-200: #fbe5ff;
+
+  --accent-100: #959bee;
+  --accent-200: #a798f0;
+  --accent-300: #be9df5;
+  --accent-400: #cf9ef8;
+  --accent-500: #e29ffb;
+
+  --neutral-900: #252326;
+  --neutral-800: #58545a;
+  --neutral-700: #848189;
+  --neutral-600: #adabb2;
+  --neutral-500: #c6c5c9;
+  --neutral-400: #dfdee2;
+  --neutral-300: #f2f2f4;
+  --neutral-200: #ffffff;
+
+  /* ---- 半透明（primitive）---- */
+  --primary-600-a30: rgba(135, 153, 233, 0.3); /* 導覽列玻璃底 */
+  --primary-900-a80: rgba(37, 44, 75, 0.8); /* 深色模式左上光暈 */
+  --primary-200-a80: rgba(233, 237, 251, 0.8); /* 淺色模式左上光暈 */
+  --secondary-900-a80: rgba(77, 43, 83, 0.8); /* 深色模式右下光暈 */
+  --secondary-200-a80: rgba(251, 229, 255, 0.8); /* 淺色模式右下光暈 */
+
+  /* ---- 語意層：深色（預設）---- */
+  --color-bg: var(--neutral-900);
+  --color-bg-card: rgba(255, 255, 255, 0.04);
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.64);
+  --color-accent: var(--primary-600);
+  --color-accent-edge: var(--primary-700); /* 按鈕下緣的暗色邊，做出實體感 */
+  --color-accent-on: #ffffff; /* 疊在 accent 上的文字色 */
+  /* accent 當文字色用時要亮兩階：Primary/600 疊在深色卡片上只有 3.2～3.8:1，過不了 WCAG AA */
+  --color-accent-text: var(--primary-400);
+  --color-outline: var(--primary-400); /* 外框式按鈕的描邊 */
+  --color-outline-hover: rgba(135, 153, 233, 0.22);
+  --color-border: rgba(135, 153, 233, 0.28);
+  --color-surface-glass: var(--primary-600-a30);
+  --color-glow-1: var(--primary-900-a80);
+  --color-glow-2: var(--secondary-900-a80);
+
+  /* ---- 語意層：淺色 ---- */
+  --color-bg-light: var(--neutral-200);
+  --color-bg-card-light: #ffffff;
+  --color-text-light: var(--neutral-900);
+  --color-text-muted-light: rgba(37, 35, 38, 0.68);
+  --color-accent-text-light: var(--primary-800); /* #8799E9 在白底上對比不足，文字改用深一階 */
+  --color-outline-light: var(--primary-700);
+  --color-outline-hover-light: rgba(135, 153, 233, 0.18);
+  --color-border-light: rgba(135, 153, 233, 0.4);
+  --color-glow-1-light: var(--primary-200-a80);
+  --color-glow-2-light: var(--secondary-200-a80);
 
   --font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-size-h1: 2rem;
@@ -35,5 +95,7 @@
   --space-4: 2rem;
 
   --radius: 0.75rem;
+  --radius-pill: 999px;
   --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-card-light: 0 2px 8px rgba(37, 44, 75, 0.08);
 }

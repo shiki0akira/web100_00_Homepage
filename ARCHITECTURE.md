@@ -72,12 +72,19 @@ vibeweb100.com/game003/*         → 第 3 個專案
 <link rel="stylesheet" href="https://www.vibeweb100.com/design-tokens.css">
 ```
 
+配色來自 Figma 的變數庫（Primary / Secondary / Accent / Neutral 四組色階 + 一組半透明），`design-tokens.css` 裡的 primitive 變數跟 Figma 變數同名，語意層變數（`--color-bg`、`--color-accent`……）再指到 primitive。改配色時先動 Figma、再同步這份檔案，兩邊名字對得上就不會走鐘。
+
+⚠️ `index.html` 的 `<style>` 裡有一份一模一樣的變數副本（內嵌是為了避免首屏閃色），改 `design-tokens.css` 時要兩邊一起改。
+
 要改配色/字級/間距，只改這一份檔案，全系列專案下次部署就會拿到最新值。目前只提供變數，不含選取器樣式規則；深色/淺色是一組 `-light` 後綴的平行變數，怎麼切換（class、data-attribute、prefers-color-scheme）由各專案自己決定——各專案目前的切換機制還不一致（Homepage 用 `body.light` 表示淺色、Avalon 的 Tailwind 用 `darkMode: 'class'` 表示深色），統一這件事留給之後設計 UI 系統時處理。
 
 共用元件規範：
+- 圖示：一律用 **Material Symbols Rounded**（24px / wght 400 / GRAD 0 / opsz 24），從 <https://fonts.google.com/icons?icon.style=Rounded> 取。純 HTML 專案直接內嵌 SVG、把 `fill` 改成 `currentColor`（不要載整套字型，一顆圖示不值得多一個網路請求）；React 專案可用 `material-symbols` 套件，但樣式要選 Rounded
 - 導覽列：左側 logo/系列名稱（連回首頁），右側放該專案自己的功能按鈕
-- 頁尾：統一顯示「回到 Web100 首頁」連結 + 版權/系列標語
+- 頁尾：一條 `Primary/600` 分隔線，左邊是回首頁連結 `← Web100` + 專案編號（去掉 `web100_` 前綴，例如 `01_Avalon-Voice`），右邊是版權標語 `© 2026 Web100 Series`；640px 以下才斷行堆疊。首頁的頁尾是另一套：只置中放一行 `© 2026 Web100 Series`，沒有回首頁連結也沒有專案編號，不要跟著小專案改
+- 導覽列/頁尾的文字維持語言中性（品牌名、專案編號、年份），不進 i18n 檔
 - 按鈕：統一圓角、主色、hover 效果
+- 按鈕 disabled：跟可點擊時的「立體」語言相反，用「壓扁」表示不能點——拿掉厚度陰影（`box-shadow: none`），底色換成同色階淺兩階、文字用該階對應的深字（例：淺色 `Secondary/800 on Secondary/200` 4.62:1，深色 `Primary/400 on Primary/800` 4.62:1），不要單純疊 `opacity-50`。外框式按鈕例外：本來就沒有厚度可拿，直接整體降到 40% 透明度即可（WCAG 1.4.3 不強制非互動元件的對比度）。不要另外加鎖頭一類的圖示——壓扁的樣式本身就是「不能點」的訊號，不需要疊加解釋
 - 卡片容器：統一用 `--color-bg-card`、`--radius`、`--shadow-card`
 
 ## 8. AdSense 注意事項

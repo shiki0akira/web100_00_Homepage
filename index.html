@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#252326" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Web100｜100 個免安裝破冰遊戲與小工具合集</title>
     <meta name="description" content="Web100 是用生成式 AI 打造的破冰遊戲與小工具合集，手機瀏覽器打開就能玩，不用下載 App、不用註冊帳號。適合聚會、團康、課堂破冰，持續新增中，目前已收錄阿瓦隆語音主持等聚會遊戲。" />
     <link rel="canonical" href="https://www.vibeweb100.com/zh-TW/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Web100｜100 個免安裝破冰遊戲與小工具合集" />
-    <meta property="og:description" content="AI 打造的破冰遊戲與小工具合集，手機瀏覽器打開就能玩，適合聚會、團康、課堂破冰，持續新增中。" />
+    <meta property="og:description" content="Web100 是用生成式 AI 打造的破冰遊戲與小工具合集，手機瀏覽器打開就能玩，不用下載 App、不用註冊帳號。適合聚會、團康、課堂破冰，持續新增中，目前已收錄阿瓦隆語音主持等聚會遊戲。" />
     <meta property="og:url" content="https://www.vibeweb100.com/zh-TW/" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7PE5687BG"></script>
     <script>
@@ -20,19 +21,103 @@
       gtag('config', 'G-S7PE5687BG', { send_page_view: false });
     </script>
     <style>
+      /* ⚠️ 這段跟根目錄的 design-tokens.css 是同一份東西，改動要兩邊一起改。
+         這裡內嵌而不是 <link> 進來，是為了避免首屏閃一下沒有顏色的畫面。 */
       :root {
-        --color-bg: #0f172a;
-        --color-bg-card: #1e293b;
-        --color-text: #f1f5f9;
-        --color-text-muted: #94a3b8;
-        --color-accent: #6366f1;
-        --color-border: #334155;
+        --primary-900: #252c4b;
+        --primary-800: #474f80;
+        --primary-700: #6776b5;
+        --primary-600: #8799e9;
+        --primary-500: #9cb0f3;
+        --primary-400: #b8c6f8;
+        --primary-300: #d3dbf9;
+        --primary-200: #e9edfb;
 
-        --color-bg-light: #ffffff;
-        --color-bg-card-light: #f8fafc;
-        --color-text-light: #0f172a;
-        --color-text-muted-light: #64748b;
-        --color-border-light: #e2e8f0;
+        --secondary-900: #4d2b53;
+        --secondary-800: #855a8d;
+        --secondary-700: #ba82c4;
+        --secondary-600: #f3a4fb;
+        --secondary-500: #f7b9fd;
+        --secondary-400: #f8cafd;
+        --secondary-300: #faddfe;
+        --secondary-200: #fbe5ff;
+
+        --accent-100: #959bee;
+        --accent-200: #a798f0;
+        --accent-300: #be9df5;
+        --accent-400: #cf9ef8;
+        --accent-500: #e29ffb;
+
+        --neutral-900: #252326;
+        --neutral-800: #58545a;
+        --neutral-700: #848189;
+        --neutral-600: #adabb2;
+        --neutral-500: #c6c5c9;
+        --neutral-400: #dfdee2;
+        --neutral-300: #f2f2f4;
+        --neutral-200: #ffffff;
+
+        --primary-600-a30: rgba(135, 153, 233, 0.3);
+        --primary-900-a80: rgba(37, 44, 75, 0.8);
+        --primary-200-a80: rgba(233, 237, 251, 0.8);
+        --secondary-900-a80: rgba(77, 43, 83, 0.8);
+        --secondary-200-a80: rgba(251, 229, 255, 0.8);
+        --secondary-600-a20: rgba(243, 164, 251, 0.2); /* 淺色模式的導覽列玻璃底 */
+
+        --color-bg: var(--neutral-900);
+        --color-bg-card: rgba(255, 255, 255, 0.04);
+        --color-text: #ffffff;
+        --color-text-muted: rgba(255, 255, 255, 0.64);
+        --color-accent: var(--primary-600); /* 亮色強調：描邊、焦點框、分隔線 */
+        /* 實心按鈕是「立體」款：底色 + 正下方一塊沒有模糊的深色陰影當厚度，
+           hover 時厚度變薄、按鈕往下位移，看起來像被壓下去。
+           深色模式 Primary/700 配白圖示（4.34:1），hover 壓到 Primary/800（7.78:1）。 */
+        --color-button-surface: var(--primary-700);
+        --color-button-edge: var(--primary-800);
+        --color-button-surface-hover: var(--primary-800);
+        --color-button-edge-hover: var(--primary-900);
+        --color-button-on: #ffffff;
+        --color-accent-on: #ffffff;
+        /* 標籤文字用比 accent 亮兩階的色：Primary/600 疊在深色卡片上只有 3.2～3.8:1，過不了 AA */
+        --color-accent-text: var(--primary-400);
+        /* 品牌膠囊。設計稿上是 #2B2D4F / #E8ECFA，跟色階裡的 Primary/900、Primary/200
+           差 1~6（同一個色票的兩次取值），這裡統一走色階，不另外開新色 */
+        --color-brand-surface: var(--primary-900);
+        --color-brand-text: #ffffff;
+        --color-outline: var(--primary-400); /* 外框式按鈕的描邊 */
+        --color-outline-hover: rgba(135, 153, 233, 0.22);
+        --color-border: rgba(135, 153, 233, 0.28);
+        --color-tag-bg: rgba(135, 153, 233, 0.18);
+        --color-surface-glass: var(--primary-600-a30);
+        --color-glow-1: var(--primary-900-a80);
+        --color-glow-2: var(--secondary-900-a80);
+
+        /* 淺色模式整組改走 Secondary。
+           注意 Secondary 的色階整體比 Primary 亮，不能直接把 Primary/700 換成 Secondary/700
+           —— 白字疊 Secondary/700 只有 2.97:1，要再深一階到 Secondary/800 才有 5.46:1。
+           所以下面的對應都比深色模式的 Primary 版本再深一階。 */
+        --color-bg-light: var(--neutral-200);
+        --color-bg-card-light: #ffffff;
+        --color-text-light: var(--neutral-900);
+        --color-text-muted-light: rgba(37, 35, 38, 0.68);
+        --color-accent-light: var(--secondary-700); /* 分隔線、焦點框 */
+        --color-accent-text-light: var(--secondary-800);
+        /* 淺色模式的實心鈕：Secondary/500 底 + Secondary/900 圖示（7.45:1），
+           hover 到 Secondary/600（6.45:1）。厚度用再深一階的粉色。 */
+        --color-button-surface-light: var(--secondary-500);
+        --color-button-edge-light: var(--secondary-600);
+        --color-button-surface-hover-light: var(--secondary-600);
+        --color-button-edge-hover-light: var(--secondary-700);
+        --color-button-on-light: var(--secondary-900);
+        --color-brand-surface-light: var(--secondary-200);
+        --color-brand-text-light: var(--secondary-900);
+        --color-outline-light: var(--secondary-800);
+        --color-outline-hover-light: rgba(243, 164, 251, 0.22);
+        --color-border-light: rgba(186, 130, 196, 0.45);
+        --color-tag-bg-light: rgba(243, 164, 251, 0.22);
+        --color-surface-glass-light: var(--secondary-600-a20);
+        --color-glow-1-light: var(--primary-200-a80);
+        --color-glow-2-light: var(--secondary-200-a80);
 
         --font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
         --font-size-h1: 2rem;
@@ -45,13 +130,16 @@
         --space-4: 2rem;
 
         --radius: 0.75rem;
+        --radius-pill: 999px;
         --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
+        --shadow-card-light: 0 2px 8px rgba(37, 44, 75, 0.08);
       }
 
       * { box-sizing: border-box; }
 
       body {
         margin: 0;
+        min-height: 100vh;
         background: var(--color-bg);
         color: var(--color-text);
         font-family: var(--font-family);
@@ -60,38 +148,186 @@
         transition: background 0.15s ease, color 0.15s ease;
       }
 
-      body.light { background: var(--color-bg-light); color: var(--color-text-light); }
+      body.light {
+        background: var(--color-bg-light);
+        color: var(--color-text-light);
+        --color-accent: var(--color-accent-light);
+        --color-accent-text: var(--color-accent-text-light);
+        --color-button-surface: var(--color-button-surface-light);
+        --color-button-edge: var(--color-button-edge-light);
+        --color-button-surface-hover: var(--color-button-surface-hover-light);
+        --color-button-edge-hover: var(--color-button-edge-hover-light);
+        --color-button-on: var(--color-button-on-light);
+        --color-brand-surface: var(--color-brand-surface-light);
+        --color-brand-text: var(--color-brand-text-light);
+        --color-outline: var(--color-outline-light);
+        --color-outline-hover: var(--color-outline-hover-light);
+        --color-border: var(--color-border-light);
+        --color-tag-bg: var(--color-tag-bg-light);
+        --color-surface-glass: var(--color-surface-glass-light);
+      }
 
+      /* 背景兩顆光暈，對應設計稿左上／右下的大圓；橢圓的百分比尺寸讓比例在任何視窗寬度下都跟稿子一致 */
+      body::before, body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      body::before {
+        background-image:
+          radial-gradient(ellipse 53% 95% at 30% 5%, var(--color-glow-1) 0%, transparent 100%),
+          radial-gradient(ellipse 53% 95% at 76% 95%, var(--color-glow-2) 0%, transparent 100%);
+      }
+
+      body.light::before {
+        background-image:
+          radial-gradient(ellipse 53% 95% at 30% 5%, var(--color-glow-1-light) 0%, transparent 100%),
+          radial-gradient(ellipse 53% 95% at 76% 95%, var(--color-glow-2-light) 0%, transparent 100%);
+      }
+
+      /* 顆粒只長在光暈上，不是鋪滿整頁——對應 Figma 光暈圖層的 Noise 效果
+         （Multi、noise size 2、density 100%、opacity 15%；baseFrequency = 1 / noise size）。
+         mask 用跟光暈同一組漸層，顆粒才會跟著光暈一起淡出。 */
+      body::after {
+        opacity: 0.15;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2' intercept='-0.5'/%3E%3CfeFuncG type='linear' slope='2' intercept='-0.5'/%3E%3CfeFuncB type='linear' slope='2' intercept='-0.5'/%3E%3CfeFuncA type='discrete' tableValues='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+        -webkit-mask-image:
+          radial-gradient(ellipse 53% 95% at 30% 5%, rgba(0, 0, 0, 0.8) 0%, transparent 100%),
+          radial-gradient(ellipse 53% 95% at 76% 95%, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+        mask-image:
+          radial-gradient(ellipse 53% 95% at 30% 5%, rgba(0, 0, 0, 0.8) 0%, transparent 100%),
+          radial-gradient(ellipse 53% 95% at 76% 95%, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+      }
+
+      /* 導覽列是浮在內容上的膠囊，不是整條橫幅 */
       header {
+        position: sticky;
+        top: var(--space-2);
+        z-index: 10;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: var(--space-2);
-        padding: var(--space-3);
-        border-bottom: 1px solid var(--color-border);
+        width: min(600px, calc(100% - var(--space-3) * 2));
+        margin: var(--space-2) auto 0;
+        padding: 8px 12px 8px 8px;
+        border-radius: var(--radius-pill);
+        background: var(--color-surface-glass);
+        /* Figma 的 Background blur = 4（uniform） */
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
 
-      body.light header { border-bottom-color: var(--color-border-light); }
+      /* 品牌是一顆獨立的膠囊，疊在導覽列的玻璃膠囊上。
+         高度 40 是全系列共用規格，跟右側控制項同高，小專案的返回鈕也是 40，header 才會對齊 */
+      header .brand {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        height: 40px;
+        padding: 0 18px;
+        border-radius: var(--radius-pill);
+        background: var(--color-brand-surface);
+        color: var(--color-brand-text);
+      }
 
-      header .brand h1 { margin: 0; font-size: 1.25rem; }
+      header .brand h1 { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
 
       .controls { display: flex; align-items: center; gap: var(--space-1); }
 
+      /* 兩顆按鈕共用同一組尺寸，高度以圓形的深淺色切換鈕為準。
+         語言選擇是外框式（透明底 + 描邊 + 跟頁面同色的文字），
+         深淺色切換是實心式（accent 填色 + 白色圖示）。 */
       select, button.theme-toggle {
         font-family: inherit;
         font-size: 0.9rem;
-        border-radius: var(--radius);
-        border: 1px solid var(--color-border);
-        background: var(--color-bg-card);
-        color: var(--color-text);
-        padding: 0.4rem 0.75rem;
+        font-weight: 600;
+        line-height: 1.4;
+        height: 40px;
+        border-radius: var(--radius-pill);
         cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
       }
 
-      body.light select, body.light button.theme-toggle {
-        border-color: var(--color-border-light);
-        background: var(--color-bg-card-light);
-        color: var(--color-text-light);
+      .select-wrap { position: relative; display: inline-flex; }
+
+      select {
+        width: 140px;
+        padding: 0 2.1rem 0 0.9rem;
+        border: 1.5px solid var(--color-outline);
+        background-color: transparent;
+        color: inherit;
+        text-overflow: ellipsis;
+      }
+
+      /* 箭頭用 mask + currentColor，才會自動跟著深淺色模式與 hover 換色
+         （Material Symbols Rounded / keyboard_arrow_down） */
+      .select-wrap::after {
+        content: '';
+        position: absolute;
+        right: 0.6rem;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        background-color: currentColor;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M465-363.5q-7-2.5-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5q-8 0-15-2.5Z'/%3E%3C/svg%3E") center / 20px no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M465-363.5q-7-2.5-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5q-8 0-15-2.5Z'/%3E%3C/svg%3E") center / 20px no-repeat;
+      }
+
+      /* 圖示一律用 Material Symbols Rounded（24px / wght 400 / GRAD 0 / opsz 24），
+         直接內嵌 SVG 並吃 currentColor，不載入整套字型 */
+      .icon { display: block; width: 20px; height: 20px; fill: currentColor; }
+
+      /* 展開的選單是系統畫的，會沿用頁面色而不是按鈕色，要另外指定才讀得到 */
+      select option { background: var(--color-bg); color: var(--color-text); }
+      body.light select option { background: var(--color-bg-light); color: var(--color-text-light); }
+
+      button.theme-toggle {
+        width: 40px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        border: 0;
+        background-color: var(--color-button-surface);
+        color: var(--color-button-on);
+        /* 沒有模糊的實色陰影 = 按鈕的厚度 */
+        box-shadow: 0 3px 0 var(--color-button-edge);
+        transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+      }
+
+      /* 兩顆圖示都放在 HTML 裡、用 CSS 決定顯示哪顆，切換時不用重畫 DOM，也不會在 JS 跑之前閃 */
+      button.theme-toggle .icon-light { display: none; }
+      body.light button.theme-toggle .icon-dark { display: none; }
+      body.light button.theme-toggle .icon-light { display: block; }
+
+      /* hover：厚度從 3 變 2、按鈕同步往下 1，總高度不變 = 被壓下去的感覺 */
+      button.theme-toggle:hover {
+        background-color: var(--color-button-surface-hover);
+        box-shadow: 0 2px 0 var(--color-button-edge-hover);
+        transform: translateY(1px);
+      }
+
+      /* 按著時整個貼平 */
+      button.theme-toggle:active {
+        box-shadow: 0 0 0 var(--color-button-edge-hover);
+        transform: translateY(3px);
+      }
+
+      .select-wrap:hover select {
+        border-color: var(--color-accent);
+        background-color: var(--color-outline-hover);
+      }
+
+      select:focus-visible, button.theme-toggle:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
       }
 
       main { max-width: 960px; margin: 0 auto; padding: var(--space-4) var(--space-3); }
@@ -115,6 +351,8 @@
         padding: var(--space-3);
         text-decoration: none;
         color: var(--color-text);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
         transition: transform 0.15s ease, border-color 0.15s ease;
       }
 
@@ -122,7 +360,7 @@
         background: var(--color-bg-card-light);
         border-color: var(--color-border-light);
         color: var(--color-text-light);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        box-shadow: var(--shadow-card-light);
       }
 
       .card:hover { transform: translateY(-2px); border-color: var(--color-accent); }
@@ -134,15 +372,26 @@
         display: inline-block;
         margin-top: var(--space-2);
         padding: 2px 10px;
-        border-radius: 999px;
-        background: rgba(99, 102, 241, 0.15);
-        color: var(--color-accent);
+        border-radius: var(--radius-pill);
+        background: var(--color-tag-bg);
+        color: var(--color-accent-text);
         font-size: 0.75rem;
+        font-weight: 600;
       }
 
-      .placeholder { border-style: dashed; opacity: 0.5; }
+      /* 「即將推出」的卡片用虛線框 + 透明底來區分，不用 opacity——
+         整張淡掉會把裡面的文字對比一起壓掉（深色模式只剩 2.05:1），過不了 WCAG AA */
+      .placeholder { border-style: dashed; background: transparent; }
+      body.light .placeholder { background: transparent; box-shadow: none; }
 
-      footer { text-align: center; padding: var(--space-4) var(--space-3); color: var(--color-text-muted); font-size: 0.85rem; }
+      footer {
+        margin-top: var(--space-4);
+        border-top: 1px solid var(--color-accent);
+        text-align: center;
+        padding: var(--space-4) var(--space-3);
+        color: var(--color-text-muted);
+        font-size: 0.85rem;
+      }
       body.light footer { color: var(--color-text-muted-light); }
     </style>
   </head>
@@ -150,8 +399,11 @@
     <header>
       <div class="brand"><h1>Web100</h1></div>
       <div class="controls">
-        <select id="lang-switcher"></select>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+        <span class="select-wrap"><select id="lang-switcher" aria-label="Select language"></select></span>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+          <svg class="icon icon-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="M480-120q-151 0-255.5-104.5T120-480q0-138 90-239.5T440-838q13-2 23 3.5t16 14.5q6 9 6.5 21t-7.5 23q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q11-7 22.5-6.5T819-479q10 5 15.5 15t3.5 24q-14 138-117.5 229T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
+          <svg class="icon icon-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="M565-395q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35Zm-226.5 56.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM80-440q-17 0-28.5-11.5T40-480q0-17 11.5-28.5T80-520h80q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440H80Zm720 0q-17 0-28.5-11.5T760-480q0-17 11.5-28.5T800-520h80q17 0 28.5 11.5T920-480q0 17-11.5 28.5T880-440h-80ZM451.5-771.5Q440-783 440-800v-80q0-17 11.5-28.5T480-920q17 0 28.5 11.5T520-880v80q0 17-11.5 28.5T480-760q-17 0-28.5-11.5Zm0 720Q440-63 440-80v-80q0-17 11.5-28.5T480-200q17 0 28.5 11.5T520-160v80q0 17-11.5 28.5T480-40q-17 0-28.5-11.5ZM226-678l-43-42q-12-11-11.5-28t11.5-29q12-12 29-12t28 12l42 43q11 12 11 28t-11 28q-11 12-27.5 11.5T226-678Zm494 495-42-43q-11-12-11-28.5t11-27.5q11-12 27.5-11.5T734-282l43 42q12 11 11.5 28T777-183q-12 12-29 12t-28-12Zm-42-495q-12-11-11.5-27.5T678-734l42-43q11-12 28-11.5t29 11.5q12 12 12 29t-12 28l-43 42q-12 11-28 11t-28-11ZM183-183q-12-12-12-29t12-28l43-42q12-11 28.5-11t27.5 11q12 11 11.5 27.5T282-226l-42 43q-11 12-28 11.5T183-183Zm297-297Z"/></svg>
+        </button>
       </div>
     </header>
 
@@ -517,8 +769,12 @@
           if (theme === 'system') {
             resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
           }
+          // 圖示由 body.light 的 CSS 決定顯示哪顆，這裡只負責切 class 跟改 aria-label
           document.body.classList.toggle('light', resolved === 'light');
-          themeBtn.textContent = resolved === 'light' ? '☀️' : '🌙';
+          themeBtn.setAttribute('aria-label', resolved === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+          // 手機瀏覽器的網址列底色要跟著換，不然深色頁面上面會頂一條白邊
+          var themeMeta = document.querySelector('meta[name="theme-color"]');
+          if (themeMeta) themeMeta.setAttribute('content', resolved === 'light' ? '#ffffff' : '#252326');
         }
         var storedTheme = window.localStorage.getItem('web100-theme') || 'system';
         applyTheme(storedTheme);
