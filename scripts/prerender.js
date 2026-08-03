@@ -110,7 +110,7 @@ writeFileSync(path.join(OUT, 'index.html'), render(DEFAULT_LANG));
 
 writeFileSync(path.join(OUT, 'sitemap.xml'), buildSitemap());
 
-for (const file of ['robots.txt', 'design-tokens.css', 'favicon.svg']) {
+for (const file of ['robots.txt', 'design-tokens.css', 'favicon.svg', 'apple-touch-icon.png']) {
   if (existsSync(file)) copyFileSync(file, path.join(OUT, file));
 }
 

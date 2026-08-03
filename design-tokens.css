@@ -65,6 +65,10 @@
   --color-accent-on: #ffffff; /* 疊在 accent 上的文字色 */
   /* accent 當文字色用時要亮兩階：Primary/600 疊在深色卡片上只有 3.2～3.8:1，過不了 WCAG AA */
   --color-accent-text: var(--primary-400);
+  /* 品牌膠囊（導覽列左上）與疊在上面的標誌 */
+  --color-brand-surface: var(--primary-900);
+  --color-brand-text: #ffffff;
+  --color-brand-logo: var(--primary-500); /* 對 Primary/900 是 6.43:1 */
   --color-outline: var(--primary-400); /* 外框式按鈕的描邊 */
   --color-outline-hover: rgba(135, 153, 233, 0.22);
   --color-border: rgba(135, 153, 233, 0.28);
@@ -78,6 +82,11 @@
   --color-text-light: var(--neutral-900);
   --color-text-muted-light: rgba(37, 35, 38, 0.68);
   --color-accent-text-light: var(--primary-800); /* #8799E9 在白底上對比不足，文字改用深一階 */
+  --color-brand-surface-light: var(--secondary-200);
+  --color-brand-text-light: var(--secondary-900);
+  /* 淺色膠囊是 Secondary/200 粉底，標誌指定用 Secondary/600（1.54:1，同色相疊同色相）。標誌屬品牌識別，
+     WCAG 1.4.11 的非文字對比不涵蓋 logo；這條只給標誌，圖示或文字請用 --color-accent-text-light */
+  --color-brand-logo-light: var(--secondary-600);
   --color-outline-light: var(--primary-700);
   --color-outline-hover-light: rgba(135, 153, 233, 0.18);
   --color-border-light: rgba(135, 153, 233, 0.4);

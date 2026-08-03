@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#252326" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>Web100｜100 個免安裝破冰遊戲與小工具合集</title>
     <meta name="description" content="Web100 是用生成式 AI 打造的破冰遊戲與小工具合集，手機瀏覽器打開就能玩，不用下載 App、不用註冊帳號。適合聚會、團康、課堂破冰，持續新增中，目前已收錄阿瓦隆語音主持等聚會遊戲。" />
     <link rel="canonical" href="https://www.vibeweb100.com/zh-TW/" />
@@ -84,6 +85,8 @@
            差 1~6（同一個色票的兩次取值），這裡統一走色階，不另外開新色 */
         --color-brand-surface: var(--primary-900);
         --color-brand-text: #ffffff;
+        /* 標誌疊在品牌膠囊上：Primary/500 對 Primary/900 是 6.43:1 */
+        --color-brand-logo: var(--primary-500);
         --color-outline: var(--primary-400); /* 外框式按鈕的描邊 */
         --color-outline-hover: rgba(135, 153, 233, 0.22);
         --color-border: rgba(135, 153, 233, 0.28);
@@ -111,6 +114,10 @@
         --color-button-on-light: var(--secondary-900);
         --color-brand-surface-light: var(--secondary-200);
         --color-brand-text-light: var(--secondary-900);
+        /* 淺色膠囊是 Secondary/200 粉底，標誌指定用 Secondary/600（1.54:1，同色相疊同色相）。
+           標誌屬品牌識別，WCAG 1.4.11 的非文字對比不涵蓋 logo，所以低於 3:1 不算違規——
+           但這個色只給標誌，圖示或文字要用 --color-accent-text-light，不要拿這條去套 */
+        --color-brand-logo-light: var(--secondary-600);
         --color-outline-light: var(--secondary-800);
         --color-outline-hover-light: rgba(243, 164, 251, 0.22);
         --color-border-light: rgba(186, 130, 196, 0.45);
@@ -160,6 +167,7 @@
         --color-button-on: var(--color-button-on-light);
         --color-brand-surface: var(--color-brand-surface-light);
         --color-brand-text: var(--color-brand-text-light);
+        --color-brand-logo: var(--color-brand-logo-light);
         --color-outline: var(--color-outline-light);
         --color-outline-hover: var(--color-outline-hover-light);
         --color-border: var(--color-border-light);
@@ -226,12 +234,24 @@
       header .brand {
         display: flex;
         align-items: center;
+        gap: 8px;
         min-width: 0;
         height: 40px;
-        padding: 0 18px;
+        /* 左邊比右邊窄：標誌本身帶一點視覺留白，跟文字用同樣的 18 會看起來偏右 */
+        padding: 0 18px 0 14px;
         border-radius: var(--radius-pill);
         background: var(--color-brand-surface);
         color: var(--color-brand-text);
+      }
+
+      /* viewBox 裁到標誌實際的邊界（原稿 180 見方裡只用到 4,20 起算的 172x140），
+         這樣高度就等於看得到的高度，不用再猜要補多少倍才跟文字等高 */
+      header .brand-mark {
+        display: block;
+        flex-shrink: 0;
+        width: 25px;
+        height: 20px;
+        fill: var(--color-brand-logo);
       }
 
       header .brand h1 { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
@@ -397,7 +417,10 @@
   </head>
   <body>
     <header>
-      <div class="brand"><h1>Web100</h1></div>
+      <div class="brand">
+        <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="4 20 172 140" aria-hidden="true"><path d="M176 160H127.315C107.994 160 92.3316 144.33 92.3316 125V106.332H103.873V101.667H92.3316V90H87.6684V101.667H76.8814V106.332H87.6684V125C87.6684 144.33 72.0056 160 52.6853 160H4V20H8.95652C28.2768 20.0003 43.9396 35.6702 43.9396 55V90H48.6028V55C48.6028 35.6702 64.2656 20.0003 83.5859 20H96.4141C115.734 20.0003 131.397 35.6702 131.397 55V90H136.06V55C136.06 35.6702 151.723 20.0003 171.043 20H176V160Z"/></svg>
+        <h1>Web100</h1>
+      </div>
       <div class="controls">
         <span class="select-wrap"><select id="lang-switcher" aria-label="Select language"></select></span>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
