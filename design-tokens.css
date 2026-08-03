@@ -82,9 +82,11 @@
   --color-text-light: var(--neutral-900);
   --color-text-muted-light: rgba(37, 35, 38, 0.68);
   --color-accent-text-light: var(--primary-800); /* #8799E9 在白底上對比不足，文字改用深一階 */
-  --color-brand-surface-light: var(--secondary-200);
+  /* 膠囊用中性灰而不是 Secondary/200：淺色導覽列的玻璃底疊在白底上實際是 #fdedfe，粉色膠囊疊上去
+     只有 1.05:1，邊界等於不存在。Neutral/300 明暗雖然一樣接近，但灰跟粉是不同色相，分得出來 */
+  --color-brand-surface-light: var(--neutral-300);
   --color-brand-text-light: var(--secondary-900);
-  /* 淺色膠囊是 Secondary/200 粉底，標誌指定用 Secondary/600（1.54:1，同色相疊同色相）。標誌屬品牌識別，
+  /* 標誌指定用 Secondary/600，疊在 Neutral/300 上是 1.63:1。標誌屬品牌識別，
      WCAG 1.4.11 的非文字對比不涵蓋 logo；這條只給標誌，圖示或文字請用 --color-accent-text-light */
   --color-brand-logo-light: var(--secondary-600);
   --color-outline-light: var(--primary-700);

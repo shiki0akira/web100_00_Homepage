@@ -112,10 +112,13 @@
         --color-button-surface-hover-light: var(--secondary-600);
         --color-button-edge-hover-light: var(--secondary-700);
         --color-button-on-light: var(--secondary-900);
-        --color-brand-surface-light: var(--secondary-200);
+        /* 膠囊用中性灰而不是 Secondary/200：淺色導覽列的玻璃底疊在白底上實際是 #fdedfe，
+           粉色膠囊疊上去只有 1.05:1，邊界等於不存在。改成 Neutral/300 後明暗雖然還是接近，
+           但灰跟粉是不同色相，看得出來是疊在上面的一塊。膠囊裡的文字有 10.5:1，很安全 */
+        --color-brand-surface-light: var(--neutral-300);
         --color-brand-text-light: var(--secondary-900);
-        /* 淺色膠囊是 Secondary/200 粉底，標誌指定用 Secondary/600（1.54:1，同色相疊同色相）。
-           標誌屬品牌識別，WCAG 1.4.11 的非文字對比不涵蓋 logo，所以低於 3:1 不算違規——
+        /* 標誌指定用 Secondary/600，疊在 Neutral/300 上是 1.63:1。標誌屬品牌識別，
+           WCAG 1.4.11 的非文字對比不涵蓋 logo，所以低於 3:1 不算違規——
            但這個色只給標誌，圖示或文字要用 --color-accent-text-light，不要拿這條去套 */
         --color-brand-logo-light: var(--secondary-600);
         --color-outline-light: var(--secondary-800);
