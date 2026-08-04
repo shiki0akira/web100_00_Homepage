@@ -42,9 +42,11 @@ vibeweb100.com/game003/*         → 第 3 個專案
 
 | | 純前端（像阿瓦隆） | 有後端/即時連線（像搶答） |
 |---|---|---|
-| 部署平台 | Vercel | Cloudflare Pages + Workers（或 Durable Objects） |
+| 部署平台 | Vercel | Cloudflare Workers（assets binding + Durable Objects） |
 | 原因 | 靜態網頁 + JS，Vercel 免費簡單 | 需要 WebSocket 房間狀態，Vercel serverless function 不支援長連線 |
 | 接入方式 | Worker/首頁 rewrite 代理過去 | 本來就在 Cloudflare，Worker 做好後可用 Service Binding 內部呼叫，效能更好 |
+
+搶答（02）實作時確認了：**靜態檔不用另外開 Cloudflare Pages**，同一個 Worker 用 assets binding 就能服務，網頁與 WebSocket 同源、不用處理 CORS，也少一個部署目標。之後需要即時連線的專案照這個做法。
 
 ## 5. Repo 策略
 
@@ -99,7 +101,13 @@ vibeweb100.com/game003/*         → 第 3 個專案
 | web100_00_Homepage | 已上線 | Vercel | 暫時代理 /avalon/* 到阿瓦隆 |
 | web100_01_Avalon-Voice | 已上線 | Vercel | 已改為 /avalon/{lang}/ 網址結構，已裝 GA4 |
 | Cloudflare Worker 路由總機 | 待實作 | Cloudflare Workers | 下一步優先要做的基礎建設 |
-| web100_02_BuzzerGame | 規劃中 | 未定（可能 Cloudflare Pages + Workers） | 需要即時連線/房間功能 |
+| web100_02_BuzzerGame | 開發完成，待部署 | Cloudflare Workers | 單一 Worker 同時服務靜態檔與 Durable Object；本機驗證過，卡在 `wrangler login` 還沒做 |
+
+`web100_02_BuzzerGame` 部署完成後還要補三件事，順序不能顛倒（不然首頁會出現連不到的卡片）：
+
+1. `wrangler deploy`，記下 Worker 的實際網址
+2. 首頁 `vercel.json` 加 `/buzzer/:path*` 代理規則（放在語言萬用規則之前）
+3. 首頁 `index.html` 的 `STRINGS` 與 `scripts/prerender.js` 加上搶答遊戲的卡片
 
 ## 10. 每次開發新專案前的檢查清單
 
