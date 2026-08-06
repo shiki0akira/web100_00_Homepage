@@ -1,9 +1,9 @@
-// 為 18 種語言各產生一份靜態 HTML，輸出到 dist/。
+// 為 8 種語言各產生一份靜態 HTML，輸出到 dist/。
 //
 // 為什麼需要這支：原本 /zh-TW/、/ja/、/en/ 等所有語言都 rewrite 到同一份 index.html，
 // 那份 HTML 的 <title> 與 lang 屬性寫死中文，body 裡 hero 與卡片文字則是空標籤、
 // 等 JS 用 textContent 填。結果是爬蟲不論抓哪個語言，看到的都是「中文標題 + 空內文」，
-// 而且整站一條 hreflang 都沒有，18 個語言版本等於在互相競爭同一組關鍵字。
+// 而且整站一條 hreflang 都沒有，各語言版本等於在互相競爭同一組關鍵字。
 //
 // 這支從 index.html 裡的 STRINGS 直接取文案（跟執行期 JS 用的是同一份來源，不會對不上），
 // 為每個語言產生帶正確 lang/title/description/canonical/hreflang 且內文已填好的 HTML。

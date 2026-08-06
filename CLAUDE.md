@@ -2,7 +2,7 @@
 
 Web100 系列的作品集入口首頁。純 HTML/CSS/JS、沒有框架，部署在 Vercel，綁定正式網域 `www.vibeweb100.com`。
 
-原始碼只有一份 `index.html`，但**部署前會經過一道 build**：`scripts/prerender.js` 讀取 `index.html` 裡的 `STRINGS`，為 18 種語言各產生一份 `dist/{lang}/index.html`，補上該語言的 `lang`、`title`、`description`、`canonical`、`hreflang`，並把 hero 與卡片文字直接填進 HTML。沒有這道 build 的話，所有語言會共用同一份中文 title 且內文全空，爬蟲看不到任何內容。`dist/` 不進版控，由 Vercel 建置時產生。
+原始碼只有一份 `index.html`，但**部署前會經過一道 build**：`scripts/prerender.js` 讀取 `index.html` 裡的 `STRINGS`，為 8 種語言各產生一份 `dist/{lang}/index.html`，補上該語言的 `lang`、`title`、`description`、`canonical`、`hreflang`，並把 hero 與卡片文字直接填進 HTML。沒有這道 build 的話，所有語言會共用同一份中文 title 且內文全空，爬蟲看不到任何內容。`dist/` 不進版控，由 Vercel 建置時產生。
 
 ## 先讀這個
 
