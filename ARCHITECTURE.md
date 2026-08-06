@@ -117,3 +117,4 @@ vibeweb100.com/game003/*         → 第 3 個專案
 4. GitHub 開新 repo，依編號命名
 5. 在首頁的 `vercel.json`（或 Cloudflare Worker 設定，等做好後）加一條轉發規則
 6. 部署完成後更新本文件第 9 節的進度追蹤表
+7. 部署完成後更新 `README.md` 的「專案一覽」表格，補上正式網址與 GitHub 連結

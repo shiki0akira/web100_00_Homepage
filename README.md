@@ -2,6 +2,16 @@
 
 Web100 系列小遊戲/小工具的作品集入口首頁，純 HTML/CSS/JS，不用框架，部署在 Vercel，綁定正式網域 `www.vibeweb100.com`。
 
+## 專案一覽
+
+⚠️ **每次新增或部署子專案，這張表都要一起更新**（詳見下方新增專案的步驟）。
+
+| 專案 | 網址 | 原始碼 | 狀態 |
+|---|---|---|---|
+| web100_00_Homepage | [www.vibeweb100.com](https://www.vibeweb100.com) | [GitHub](https://github.com/shiki0akira/web100_00_Homepage) | 已上線 |
+| web100_01_Avalon-Voice | [www.vibeweb100.com/avalon](https://www.vibeweb100.com/avalon) | [GitHub](https://github.com/shiki0akira/web100_01_Avalon-Voice) | 已上線 |
+| web100_02_BuzzerGame | 未部署 | [GitHub](https://github.com/shiki0akira/web100_02_BuzzerGame) | 開發完成，待部署 |
+
 ## 架構說明
 
 - 這個專案負責網域根目錄 `/` 與各語言首頁 `/{lang}/`
@@ -9,8 +19,13 @@ Web100 系列小遊戲/小工具的作品集入口首頁，純 HTML/CSS/JS，不
   - 之後 Cloudflare Worker 路由總機做好後，這段代理規則會整段移除，改由 Worker 統一處理所有子專案的路由
 - 每加一個新的 Web100 子專案（例如 `web100_02_BuzzerGame`），要做的事：
   1. 在 `index.html` 的 `STRINGS` 裡加上新專案的卡片文案（每個語言都要）
-  2. 在 `vercel.json` 的 `rewrites` 裡加一條 `/{新專案代號}/*` 代理規則（或等 Worker 做好後改到 Worker 設定）
-  3. 在 `sitemap.xml` 視需要補上新專案的網址
+  2. 在 `scripts/prerender.js` 的替換規則加上對應的 `fill(...)`，新卡片的文字才會進到靜態 HTML
+  3. 在 `vercel.json` 的 `rewrites` 裡加一條 `/{新專案代號}/*` 代理規則（放在語言萬用規則**之前**）
+  4. 更新 `ARCHITECTURE.md` 第 9 節的進度追蹤表
+  5. **更新本文件最上面的「專案一覽」表格**，補上新專案的網址與 GitHub 連結
+
+  `sitemap.xml` 不用手動維護，`scripts/prerender.js` 會依 `STRINGS` 的語言清單自動產生。
+  這份清單與 `CLAUDE.md` 的同名章節是同一份東西，改了要兩邊一起改。
 
 ## 語言判斷邏輯
 

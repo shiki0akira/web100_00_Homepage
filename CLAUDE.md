@@ -19,6 +19,7 @@ Web100 系列的作品集入口首頁。純 HTML/CSS/JS、沒有框架，部署�
 2. `scripts/prerender.js` 的替換規則加上對應的 `fill(...)`，新卡片的文字才會進到靜態 HTML。漏掉的話那張卡片對爬蟲來說是空的——replace 對不到位置時會直接讓 build 失敗，不會靜靜產出空頁面
 3. `vercel.json` 的 `rewrites` 加一條 `/buzzer/:path*` 代理規則（放在同類規則旁邊即可，語言判斷用的萬用規則在最後，不受影響）
 4. 更新 `ARCHITECTURE.md` 第 9 節的進度追蹤表
+5. 更新 `README.md` 最上面的「專案一覽」表格，補上新專案的**正式網址**與 **GitHub 連結**。這張表是對外的入口，專案上線後網址欄要從「未部署」換成實際網址
 
 `sitemap.xml` 不用手動維護，`prerender.js` 會依 `STRINGS` 的語言清單自動產生（含 hreflang）。
 
