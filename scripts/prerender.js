@@ -80,6 +80,8 @@ function render(lang) {
       // 卡片連結先給對的語言網址，爬蟲不必等 JS 執行就能順著爬到阿瓦隆。
       // 不帶尾斜線，與阿瓦隆站的 canonical 一致。
       [/(<a class="card" id="avalon-card" href=")[^"]*(")/, `$1/avalon/${lang}$2`],
+      // 搶答帶尾斜線，跟它自己的 canonical 一致
+      [/(<a class="card" id="buzzer-card" href=")[^"]*(")/, `$1/buzzer/${lang}/$2`],
     ],
     lang,
   );

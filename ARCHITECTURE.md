@@ -101,13 +101,20 @@ vibeweb100.com/game003/*         → 第 3 個專案
 | web100_00_Homepage | 已上線 | Vercel | 暫時代理 /avalon/* 到阿瓦隆 |
 | web100_01_Avalon-Voice | 已上線 | Vercel | 已改為 /avalon/{lang}/ 網址結構，已裝 GA4 |
 | Cloudflare Worker 路由總機 | 待實作 | Cloudflare Workers | 下一步優先要做的基礎建設 |
-| web100_02_BuzzerGame | 開發完成，待部署 | Cloudflare Workers | 單一 Worker 同時服務靜態檔與 Durable Object；本機驗證過，卡在 `wrangler login` 還沒做 |
+| web100_02_BuzzerGame | 已上線 | Cloudflare Workers | 單一 Worker 同時服務靜態檔與 Durable Object；8 種語言，已裝 GA4 |
 
-`web100_02_BuzzerGame` 部署完成後還要補三件事，順序不能顛倒（不然首頁會出現連不到的卡片）：
+### 搶答遊戲的特殊接法：網頁走代理、WebSocket 直連
 
-1. `wrangler deploy`，記下 Worker 的實際網址
-2. 首頁 `vercel.json` 加 `/buzzer/:path*` 代理規則（放在語言萬用規則之前）
-3. 首頁 `index.html` 的 `STRINGS` 與 `scripts/prerender.js` 加上搶答遊戲的卡片
+搶答是第一個需要長連線的專案，接法跟阿瓦隆**不一樣**，之後有 WebSocket 的專案照這個做：
+
+- 網頁（HTML/CSS/JS）跟阿瓦隆一樣，由 `vercel.json` 的 rewrite 代理到 Worker
+- **API 與 WebSocket 不走代理，客戶端直接連 `web100-02-buzzer-game.shiki0akira.workers.dev`**
+
+原因是 `www.vibeweb100.com` 目前是 CNAME 指向 Vercel、沒有走 Cloudflare 代理（回應標頭是 `Server: Vercel`，沒有 `cf-ray`），而 Vercel 代理外部網址時對 WebSocket 升級的支援並不可靠。靜態頁過得去，長連線不一定。
+
+客戶端的判斷在 `app/app.js` 的 `API_ORIGIN`：只有當頁面是從正式網域載入時才跨過去，本機開發、區網測試、直接開 workers.dev 都維持同源。Worker 那邊對正式網域開了 CORS（`src/worker.js` 的 `ALLOWED_ORIGINS`）。
+
+等第 3 節的 Cloudflare Worker 路由總機做好、網域改由 Cloudflare 代理之後，這個繞道就可以整段拿掉，改回同源。
 
 ## 10. 每次開發新專案前的檢查清單
 

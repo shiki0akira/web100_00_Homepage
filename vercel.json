@@ -84,6 +84,18 @@
       "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:path*"
     },
     {
+      "source": "/buzzer-sitemap.xml",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/sitemap.xml"
+    },
+    {
+      "source": "/buzzer/:path+/",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:path/"
+    },
+    {
+      "source": "/buzzer/:path*",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:path*"
+    },
+    {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
       "destination": "/:lang/index.html"
     },

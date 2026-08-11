@@ -3,3 +3,4 @@ Allow: /
 
 Sitemap: https://www.vibeweb100.com/sitemap.xml
 Sitemap: https://www.vibeweb100.com/avalon-sitemap.xml
+Sitemap: https://www.vibeweb100.com/buzzer-sitemap.xml
