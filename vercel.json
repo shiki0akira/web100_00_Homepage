@@ -25,12 +25,22 @@
       "permanent": true
     },
     {
+      "source": "/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
       "source": "/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)/:path*",
       "destination": "/en/",
       "permanent": true
     },
     {
       "source": "/avalon/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)",
+      "destination": "/avalon/en",
+      "permanent": true
+    },
+    {
+      "source": "/avalon/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)/",
       "destination": "/avalon/en",
       "permanent": true
     },
