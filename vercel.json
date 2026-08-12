@@ -10,6 +10,36 @@
       "permanent": true
     },
     {
+      "source": "/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)/avalon/:path*",
+      "destination": "/avalon/en",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)/:page(game|rules)",
+      "destination": "/avalon/en/:page",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)/:path*",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/avalon/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)",
+      "destination": "/avalon/en",
+      "permanent": true
+    },
+    {
+      "source": "/avalon/:lang(cs|id|it|nl|pl|pt|ru|sv|th|vi)/:path*",
+      "destination": "/avalon/en",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
