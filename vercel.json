@@ -88,6 +88,10 @@
       "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/sitemap.xml"
     },
     {
+      "source": "/buzzer/",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/"
+    },
+    {
       "source": "/buzzer/:path+/",
       "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:path/"
     },
