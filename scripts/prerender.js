@@ -112,7 +112,9 @@ writeFileSync(path.join(OUT, 'index.html'), render(DEFAULT_LANG));
 
 writeFileSync(path.join(OUT, 'sitemap.xml'), buildSitemap());
 
-for (const file of ['robots.txt', 'design-tokens.css', 'favicon.svg', 'apple-touch-icon.png']) {
+// 404.html 不進多語言產生流程：找不到的網址沒有語言可以判斷（/it/ 和 /xyz 都會落到這裡），
+// 語言在執行期挑，所以原樣複製就好。Vercel 對靜態輸出會自動拿 dist/404.html 當找不到頁面的回應。
+for (const file of ['robots.txt', 'design-tokens.css', 'favicon.svg', 'apple-touch-icon.png', '404.html']) {
   if (existsSync(file)) copyFileSync(file, path.join(OUT, file));
 }
 

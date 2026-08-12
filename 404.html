@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#252326" />
+    <!-- 404 不該被收錄。Vercel 會以 404 狀態碼回這一頁，這行只是雙保險 -->
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>找不到這個頁面 - Web100</title>
+
+    <!--
+      這一頁是獨立的，不經過 scripts/prerender.js 的多語言產生流程：
+      404 沒有語言網址（/it/ 和 /xyz 都會落到這裡），沒辦法預先決定語言，
+      所以文案八種語言全部內嵌，執行期依 cookie → localStorage → 瀏覽器語言挑一種。
+      反正 noindex，不需要為 SEO 做預渲染。
+
+      樣式只引用共用的 design-tokens.css + 這裡最小限度的規則，
+      不複製首頁那整份 CSS——兩邊各改各的一定會走鐘。
+    -->
+    <link rel="stylesheet" href="/design-tokens.css" />
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--color-bg);
+        color: var(--color-text);
+        font-family: var(--font-family);
+        font-size: var(--font-size-body);
+        line-height: 1.6;
+      }
+
+      body.light {
+        background: var(--color-bg-light);
+        color: var(--color-text-light);
+        --color-accent: var(--color-accent-light);
+        --color-accent-text: var(--color-accent-text-light);
+        --color-button-surface: var(--color-button-surface-light);
+        --color-button-edge: var(--color-button-edge-light);
+        --color-button-surface-hover: var(--color-button-surface-hover-light);
+        --color-button-edge-hover: var(--color-button-edge-hover-light);
+        --color-button-on: var(--color-button-on-light);
+        --color-brand-surface: var(--color-brand-surface-light);
+        --color-brand-text: var(--color-brand-text-light);
+        --color-brand-logo: var(--color-brand-logo-light);
+        --color-border: var(--color-border-light);
+        --color-bg-card: var(--color-bg-card-light);
+        --color-text-muted: var(--color-text-muted-light);
+        --shadow-card: var(--shadow-card-light);
+        --color-surface-glass: var(--color-surface-glass-light);
+        --color-glow-1: var(--color-glow-1-light);
+        --color-glow-2: var(--color-glow-2-light);
+      }
+
+      /* 背景光暈跟首頁同一組比例 */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image:
+          radial-gradient(ellipse 53% 95% at 30% 5%, var(--color-glow-1) 0%, transparent 100%),
+          radial-gradient(ellipse 53% 95% at 76% 95%, var(--color-glow-2) 0%, transparent 100%);
+      }
+
+      header {
+        position: sticky;
+        top: var(--space-2);
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-2);
+        width: min(600px, calc(100% - var(--space-3) * 2));
+        margin: var(--space-2) auto 0;
+        padding: 8px 12px 8px 8px;
+        border-radius: var(--radius-pill);
+        background: var(--color-surface-glass);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+
+      header .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 40px;
+        padding: 0 18px 0 14px;
+        border-radius: var(--radius-pill);
+        background: var(--color-brand-surface);
+        color: var(--color-brand-text);
+        text-decoration: none;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      header .brand-mark {
+        display: block;
+        flex-shrink: 0;
+        width: 25px;
+        height: 20px;
+        fill: var(--color-brand-logo);
+      }
+
+      button.theme-toggle {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: var(--radius-pill);
+        background-color: var(--color-button-surface);
+        color: var(--color-button-on);
+        box-shadow: 0 3px 0 var(--color-button-edge);
+        cursor: pointer;
+        transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+      }
+
+      button.theme-toggle:hover {
+        background-color: var(--color-button-surface-hover);
+        box-shadow: 0 2px 0 var(--color-button-edge-hover);
+        transform: translateY(1px);
+      }
+
+      button.theme-toggle:active {
+        box-shadow: 0 0 0 var(--color-button-edge-hover);
+        transform: translateY(3px);
+      }
+
+      .icon { display: block; width: 20px; height: 20px; fill: currentColor; }
+      .icon-light { display: none; }
+      body.light .icon-dark { display: none; }
+      body.light .icon-light { display: block; }
+
+      main {
+        flex: 1;
+        width: min(600px, calc(100% - var(--space-3) * 2));
+        margin: 0 auto;
+        padding: var(--space-4) 0;
+        text-align: center;
+      }
+
+      /* 大數字純裝飾，用 aria-hidden 讓螢幕閱讀器直接聽到標題 */
+      .code {
+        font-size: clamp(4rem, 22vw, 7rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        color: var(--color-accent-text);
+        margin: 0;
+      }
+
+      h1 { font-size: var(--font-size-h1); margin: var(--space-2) 0 var(--space-1); }
+      .lead { margin: 0 auto; max-width: 34rem; color: var(--color-text-muted); }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        margin-top: var(--space-4);
+        padding: 0 var(--space-3);
+        border-radius: var(--radius-pill);
+        background: var(--color-button-surface);
+        color: var(--color-button-on);
+        box-shadow: 0 3px 0 var(--color-button-edge);
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+      }
+
+      .btn:hover {
+        background: var(--color-button-surface-hover);
+        box-shadow: 0 2px 0 var(--color-button-edge-hover);
+        transform: translateY(1px);
+      }
+
+      .games { margin-top: var(--space-4); text-align: left; }
+      .games h2 { font-size: 1rem; margin: 0 0 var(--space-2); color: var(--color-text-muted); font-weight: 600; }
+      .games ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+
+      .games a {
+        display: block;
+        padding: var(--space-3);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        background: var(--color-bg-card);
+        box-shadow: var(--shadow-card);
+        color: inherit;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+      }
+
+      .games a:hover { transform: translateY(-2px); border-color: var(--color-accent); }
+
+      footer {
+        margin-top: var(--space-4);
+        border-top: 1px solid var(--color-accent);
+        text-align: center;
+        padding: var(--space-4) var(--space-3);
+        color: var(--color-text-muted);
+        font-size: 0.85rem;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * { transition-duration: 0.01ms !important; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a class="brand" href="/" aria-label="Web100">
+        <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="4 20 172 140" aria-hidden="true"><path d="M176 160H127.315C107.994 160 92.3316 144.33 92.3316 125V106.332H103.873V101.667H92.3316V90H87.6684V101.667H76.8814V106.332H87.6684V125C87.6684 144.33 72.0056 160 52.6853 160H4V20H8.95652C28.2768 20.0003 43.9396 35.6702 43.9396 55V90H48.6028V55C48.6028 35.6702 64.2656 20.0003 83.5859 20H96.4141C115.734 20.0003 131.397 35.6702 131.397 55V90H136.06V55C136.06 35.6702 151.723 20.0003 171.043 20H176V160Z"/></svg>
+        <span>Web100</span>
+      </a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <svg class="icon icon-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="M480-120q-151 0-255.5-104.5T120-480q0-138 90-239.5T440-838q13-2 23 3.5t16 14.5q6 9 6.5 21t-7.5 23q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q11-7 22.5-6.5T819-479q10 5 15.5 15t3.5 24q-14 138-117.5 229T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
+        <svg class="icon icon-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="M565-395q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35Zm-226.5 56.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM80-440q-17 0-28.5-11.5T40-480q0-17 11.5-28.5T80-520h80q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440H80Zm720 0q-17 0-28.5-11.5T760-480q0-17 11.5-28.5T800-520h80q17 0 28.5 11.5T920-480q0 17-11.5 28.5T880-440h-80ZM451.5-771.5Q440-783 440-800v-80q0-17 11.5-28.5T480-920q17 0 28.5 11.5T520-880v80q0 17-11.5 28.5T480-760q-17 0-28.5-11.5Zm0 720Q440-63 440-80v-80q0-17 11.5-28.5T480-200q17 0 28.5 11.5T520-160v80q0 17-11.5 28.5T480-40q-17 0-28.5-11.5ZM226-678l-43-42q-12-11-11.5-28t11.5-29q12-12 29-12t28 12l42 43q11 12 11 28t-11 28q-11 12-27.5 11.5T226-678Zm494 495-42-43q-11-12-11-28.5t11-27.5q11-12 27.5-11.5T734-282l43 42q12 11 11.5 28T777-183q-12 12-29 12t-28-12Zm-42-495q-12-11-11.5-27.5T678-734l42-43q11-12 28-11.5t29 11.5q12 12 12 29t-12 28l-43 42q-12 11-28 11t-28-11ZM183-183q-12-12-12-29t12-28l43-42q12-11 28.5-11t27.5 11q12 11 11.5 27.5T282-226l-42 43q-11 12-28 11.5T183-183Zm297-297Z"/></svg>
+      </button>
+    </header>
+
+    <main>
+      <p class="code" aria-hidden="true">404</p>
+      <h1 id="title">找不到這個頁面</h1>
+      <p class="lead" id="lead"></p>
+      <a class="btn" href="/" id="home-btn"></a>
+
+      <section class="games">
+        <h2 id="games-heading"></h2>
+        <ul>
+          <li><a href="/avalon/zh-TW" id="avalon-link"></a></li>
+          <li><a href="/buzzer/zh-TW/" id="buzzer-link"></a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>&copy; 2026 Web100 Series</footer>
+
+    <script>
+      (function () {
+        var SUPPORTED = ['zh-TW', 'en', 'de', 'fr', 'ja', 'ko', 'es', 'zh-CN'];
+        var DEFAULT_LANG = 'zh-TW';
+
+        var STRINGS = {
+          'zh-TW': {
+            title: '找不到這個頁面',
+            lead: '這個網址可能已經移除、改過，或是網址打錯了。從首頁開始找找看吧。',
+            home: '回首頁',
+            games: '或是直接玩點什麼',
+            avalon: '阿瓦隆語音主持',
+            buzzer: '現場搶答遊戲'
+          },
+          en: {
+            title: 'Page not found',
+            lead: 'This page may have been removed or renamed, or the address was mistyped. Start again from the home page.',
+            home: 'Go to home',
+            games: 'Or jump straight into a game',
+            avalon: 'Avalon Voice Narrator',
+            buzzer: 'Live Buzzer Game'
+          },
+          de: {
+            title: 'Seite nicht gefunden',
+            lead: 'Diese Seite wurde vielleicht entfernt oder umbenannt, oder die Adresse enthält einen Tippfehler. Fang am besten auf der Startseite neu an.',
+            home: 'Zur Startseite',
+            games: 'Oder gleich losspielen',
+            avalon: 'Avalon-Sprachansage',
+            buzzer: 'Buzzer-Spiel'
+          },
+          fr: {
+            title: 'Page introuvable',
+            lead: 'Cette page a peut-être été supprimée ou renommée, ou l’adresse comporte une faute. Repartez de la page d’accueil.',
+            home: 'Aller à l’accueil',
+            games: 'Ou lancez directement un jeu',
+            avalon: 'Narrateur vocal Avalon',
+            buzzer: 'Jeu de buzzer'
+          },
+          ja: {
+            title: 'ページが見つかりません',
+            lead: 'このページは削除または移動されたか、URLが間違っている可能性があります。トップページから探してみてください。',
+            home: 'トップページへ',
+            games: 'または、そのまま遊んでみる',
+            avalon: 'アヴァロン音声ナレーター',
+            buzzer: '早押しゲーム'
+          },
+          ko: {
+            title: '페이지를 찾을 수 없습니다',
+            lead: '이 페이지는 삭제되거나 주소가 바뀌었을 수 있고, 주소를 잘못 입력했을 수도 있습니다. 홈에서 다시 찾아보세요.',
+            home: '홈으로',
+            games: '아니면 바로 게임하기',
+            avalon: '아발론 음성 진행',
+            buzzer: '버저 게임'
+          },
+          es: {
+            title: 'Página no encontrada',
+            lead: 'Puede que esta página se haya eliminado o cambiado de dirección, o que la hayas escrito mal. Empieza de nuevo desde la portada.',
+            home: 'Ir a la portada',
+            games: 'O ponte a jugar directamente',
+            avalon: 'Narrador de voz de Avalon',
+            buzzer: 'Juego de pulsadores'
+          },
+          'zh-CN': {
+            title: '找不到这个页面',
+            lead: '这个网址可能已经移除、改过，或是网址打错了。从首页开始找找看吧。',
+            home: '回首页',
+            games: '或是直接玩点什么',
+            avalon: '阿瓦隆语音主持',
+            buzzer: '现场抢答游戏'
+          }
+        };
+
+        // 語言優先權跟系列其他專案一致：手動選過的 cookie > localStorage > 瀏覽器語言
+        function detectLang() {
+          try {
+            var m = document.cookie.match(/(?:^|;\s*)web100_lang=([^;]+)/);
+            if (m) {
+              var fromCookie = decodeURIComponent(m[1]);
+              if (SUPPORTED.indexOf(fromCookie) > -1) return fromCookie;
+            }
+            var stored = window.localStorage.getItem('web100-lang');
+            if (stored && SUPPORTED.indexOf(stored) > -1) return stored;
+          } catch (e) {
+            /* 無痕模式擋 storage：往下用瀏覽器語言 */
+          }
+
+          var tags = navigator.languages || [navigator.language || ''];
+          for (var i = 0; i < tags.length; i += 1) {
+            var tag = String(tags[i]).toLowerCase();
+            for (var j = 0; j < SUPPORTED.length; j += 1) {
+              if (SUPPORTED[j].toLowerCase() === tag) return SUPPORTED[j];
+            }
+            // 中文要看地區才知道繁簡，不能只看 zh 前綴
+            if (tag.indexOf('zh') === 0) {
+              return tag === 'zh-cn' || tag === 'zh-sg' || tag === 'zh-hans' ? 'zh-CN' : 'zh-TW';
+            }
+            var base = tag.split('-')[0];
+            if (SUPPORTED.indexOf(base) > -1) return base;
+          }
+          return DEFAULT_LANG;
+        }
+
+        var lang = detectLang();
+        var s = STRINGS[lang] || STRINGS[DEFAULT_LANG];
+
+        document.documentElement.lang = lang;
+        document.title = s.title + ' - Web100';
+        document.getElementById('title').textContent = s.title;
+        document.getElementById('lead').textContent = s.lead;
+        document.getElementById('games-heading').textContent = s.games;
+
+        var home = document.getElementById('home-btn');
+        home.textContent = s.home;
+        home.href = '/' + lang + '/';
+
+        var avalon = document.getElementById('avalon-link');
+        avalon.textContent = s.avalon;
+        avalon.href = '/avalon/' + lang;
+
+        var buzzer = document.getElementById('buzzer-link');
+        buzzer.textContent = s.buzzer;
+        buzzer.href = '/buzzer/' + lang + '/';
+
+        // 深淺色跟首頁同一套：key 是 web100-theme，未設定時跟隨系統
+        var themeBtn = document.getElementById('theme-toggle');
+        function applyTheme(theme) {
+          var light =
+            theme === 'light' ||
+            (theme !== 'dark' && window.matchMedia('(prefers-color-scheme: light)').matches);
+          document.body.classList.toggle('light', light);
+        }
+        var stored = 'system';
+        try {
+          stored = window.localStorage.getItem('web100-theme') || 'system';
+        } catch (e) {
+          /* 讀不到就跟隨系統 */
+        }
+        applyTheme(stored);
+        themeBtn.addEventListener('click', function () {
+          var isLight = document.body.classList.contains('light');
+          var next = isLight ? 'dark' : 'light';
+          try {
+            window.localStorage.setItem('web100-theme', next);
+          } catch (e) {
+            /* 記不住就只套用這一次 */
+          }
+          applyTheme(next);
+        });
+      })();
+    </script>
+  </body>
+</html>
