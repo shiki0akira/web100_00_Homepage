@@ -28,7 +28,7 @@ MUST_WORK="
 307 /
 200 /zh-TW/
 200 /404.html
-200 /avalon
+307 /avalon
 200 /avalon/zh-TW
 200 /avalon/zh-TW/game
 200 /avalon/zh-TW/rules
