@@ -116,28 +116,64 @@
       "destination": "https://web100-01-avalon-voice.vercel.app/sitemap.xml"
     },
     {
-      "source": "/avalon/:path+/",
-      "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:path/"
+      "source": "/avalon",
+      "destination": "https://web100-01-avalon-voice.vercel.app/avalon"
     },
     {
-      "source": "/avalon/:path*",
-      "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:path*"
+      "source": "/avalon/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
+      "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:lang"
+    },
+    {
+      "source": "/avalon/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(game|rules)",
+      "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:lang/:page"
+    },
+    {
+      "source": "/avalon/:dir(assets|audio)/:path*",
+      "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:dir/:path*"
+    },
+    {
+      "source": "/avalon/:file(favicon.svg|apple-touch-icon.png)",
+      "destination": "https://web100-01-avalon-voice.vercel.app/avalon/:file"
     },
     {
       "source": "/buzzer-sitemap.xml",
       "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/sitemap.xml"
     },
     {
+      "source": "/buzzer",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer"
+    },
+    {
       "source": "/buzzer/",
       "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/"
     },
     {
-      "source": "/buzzer/:path+/",
-      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:path/"
+      "source": "/buzzer/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:lang"
     },
     {
-      "source": "/buzzer/:path*",
-      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:path*"
+      "source": "/buzzer/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:lang/"
+    },
+    {
+      "source": "/buzzer/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(rules)",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:lang/:page"
+    },
+    {
+      "source": "/buzzer/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(rules)/",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:lang/:page/"
+    },
+    {
+      "source": "/buzzer/api/:path*",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/api/:path*"
+    },
+    {
+      "source": "/buzzer/vendor/:path*",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/vendor/:path*"
+    },
+    {
+      "source": "/buzzer/:file(app.css|app.js|header.js|favicon.svg|apple-touch-icon.png|sitemap.xml)",
+      "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:file"
     },
     {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
