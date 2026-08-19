@@ -24,6 +24,18 @@
       * { box-sizing: border-box; }
 
       body {
+        /* 標誌拼貼：形狀走 mask，顏色留在變數裡跟著深淺色換。
+           一格 172x144 = 標誌 viewBox 172x140 再加設計稿上 4 的列間距 */
+        --pattern-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='4 20 172 144'%3E%3Cpath fill='%23fff' d='M176%20160H127.315C107.994%20160%2092.3316%20144.33%2092.3316%20125V106.332H103.873V101.667H92.3316V90H87.6684V101.667H76.8814V106.332H87.6684V125C87.6684%20144.33%2072.0056%20160%2052.6853%20160H4V20H8.95652C28.2768%2020.0003%2043.9396%2035.6702%2043.9396%2055V90H48.6028V55C48.6028%2035.6702%2064.2656%2020.0003%2083.5859%2020H96.4141C115.734%2020.0003%20131.397%2035.6702%20131.397%2055V90H136.06V55C136.06%2035.6702%20151.723%2020.0003%20171.043%2020H176V160Z'/%3E%3C/svg%3E");
+        --pattern-hole: radial-gradient(
+          ellipse 46% 72% at 50% 50%,
+          rgba(0, 0, 0, 0.3) 0%,
+          rgba(0, 0, 0, 0.3) 58%,
+          #000 100%
+        );
+        --pattern-from: var(--primary-600);
+        --pattern-to: var(--primary-900-a80);
+
         margin: 0;
         min-height: 100vh;
         display: flex;
@@ -55,6 +67,8 @@
         --color-surface-glass: var(--color-surface-glass-light);
         --color-glow-1: var(--color-glow-1-light);
         --color-glow-2: var(--color-glow-2-light);
+        --pattern-from: var(--secondary-500);
+        --pattern-to: var(--secondary-200-a80);
       }
 
       /* 背景光暈跟首頁同一組比例 */
@@ -148,8 +162,63 @@
         text-align: center;
       }
 
+      /* 設計稿的拼貼比首頁 600 的內容欄寬，所以往兩側撐出去置中。
+         桌機 16 欄 x 8 列，比例 16x172 : 8x144；一格的高度由寬度換算，不跟著方塊高度變 */
+      .pattern {
+        --cols: 16;
+        container-type: inline-size;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(1376px, 92vw);
+        aspect-ratio: 2752 / 1152;
+        display: grid;
+        place-items: center;
+      }
+
+      .pattern::before {
+        --tile: calc(100cqw / var(--cols));
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(102deg, var(--pattern-from), var(--pattern-to));
+        background-size: var(--tile) calc(var(--tile) * 144 / 172);
+        -webkit-mask-image: var(--pattern-shape), var(--pattern-hole);
+        mask-image: var(--pattern-shape), var(--pattern-hole);
+        -webkit-mask-size: var(--tile) calc(var(--tile) * 144 / 172), 100% 100%;
+        mask-size: var(--tile) calc(var(--tile) * 144 / 172), 100% 100%;
+        -webkit-mask-repeat: repeat, no-repeat;
+        mask-repeat: repeat, no-repeat;
+        -webkit-mask-composite: source-in;
+        mask-composite: intersect;
+      }
+
+      /* 文字整組疊在拼貼上，寬度收在原本的內容欄裡，不要跟著拼貼一起變寬 */
+      .pattern-content {
+        position: relative;
+        width: min(600px, 88%);
+      }
+
+      /* 手機轉成直的 6 欄 x 12 列：上下各留一條滿版圖樣，中間整條壓到 30% 給文字站 */
+      @media (max-width: 700px) {
+        .pattern {
+          --cols: 6;
+          aspect-ratio: 1032 / 1728;
+          --pattern-hole: linear-gradient(
+            180deg,
+            #000 0%,
+            #000 10%,
+            rgba(0, 0, 0, 0.3) 24%,
+            rgba(0, 0, 0, 0.3) 76%,
+            #000 90%,
+            #000 100%
+          );
+        }
+      }
+
       /* 大數字純裝飾，用 aria-hidden 讓螢幕閱讀器直接聽到標題 */
       .code {
+        position: relative;
         font-size: clamp(4rem, 22vw, 7rem);
         font-weight: 800;
         line-height: 1;
@@ -183,25 +252,6 @@
         transform: translateY(1px);
       }
 
-      .games { margin-top: var(--space-4); text-align: left; }
-      .games h2 { font-size: 1rem; margin: 0 0 var(--space-2); color: var(--color-text-muted); font-weight: 600; }
-      .games ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
-
-      .games a {
-        display: block;
-        padding: var(--space-3);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius);
-        background: var(--color-bg-card);
-        box-shadow: var(--shadow-card);
-        color: inherit;
-        text-decoration: none;
-        font-weight: 600;
-        transition: transform 0.15s ease, border-color 0.15s ease;
-      }
-
-      .games a:hover { transform: translateY(-2px); border-color: var(--color-accent); }
-
       footer {
         margin-top: var(--space-4);
         border-top: 1px solid var(--color-accent);
@@ -230,18 +280,14 @@
     </header>
 
     <main>
-      <p class="code" aria-hidden="true">404</p>
-      <h1 id="title">找不到這個頁面</h1>
-      <p class="lead" id="lead"></p>
-      <a class="btn" href="/" id="home-btn"></a>
-
-      <section class="games">
-        <h2 id="games-heading"></h2>
-        <ul>
-          <li><a href="/avalon/zh-TW" id="avalon-link"></a></li>
-          <li><a href="/buzzer/zh-TW/" id="buzzer-link"></a></li>
-        </ul>
-      </section>
+      <div class="pattern">
+        <div class="pattern-content">
+          <p class="code" aria-hidden="true">404</p>
+          <h1 id="title">找不到這個頁面</h1>
+          <p class="lead" id="lead"></p>
+          <a class="btn" href="/" id="home-btn"></a>
+        </div>
+      </div>
     </main>
 
     <footer>&copy; 2026 Web100 Series</footer>
@@ -255,66 +301,42 @@
           'zh-TW': {
             title: '找不到這個頁面',
             lead: '這個網址可能已經移除、改過，或是網址打錯了。從首頁開始找找看吧。',
-            home: '回首頁',
-            games: '或是直接玩點什麼',
-            avalon: '阿瓦隆語音主持',
-            buzzer: '現場搶答遊戲'
+            home: '回首頁'
           },
           en: {
             title: 'Page not found',
             lead: 'This page may have been removed or renamed, or the address was mistyped. Start again from the home page.',
-            home: 'Go to home',
-            games: 'Or jump straight into a game',
-            avalon: 'Avalon Voice Narrator',
-            buzzer: 'Live Buzzer Game'
+            home: 'Go to home'
           },
           de: {
             title: 'Seite nicht gefunden',
             lead: 'Diese Seite wurde vielleicht entfernt oder umbenannt, oder die Adresse enthält einen Tippfehler. Fang am besten auf der Startseite neu an.',
-            home: 'Zur Startseite',
-            games: 'Oder gleich losspielen',
-            avalon: 'Avalon-Sprachansage',
-            buzzer: 'Buzzer-Spiel'
+            home: 'Zur Startseite'
           },
           fr: {
             title: 'Page introuvable',
             lead: 'Cette page a peut-être été supprimée ou renommée, ou l’adresse comporte une faute. Repartez de la page d’accueil.',
-            home: 'Aller à l’accueil',
-            games: 'Ou lancez directement un jeu',
-            avalon: 'Narrateur vocal Avalon',
-            buzzer: 'Jeu de buzzer'
+            home: 'Aller à l’accueil'
           },
           ja: {
             title: 'ページが見つかりません',
             lead: 'このページは削除または移動されたか、URLが間違っている可能性があります。トップページから探してみてください。',
-            home: 'トップページへ',
-            games: 'または、そのまま遊んでみる',
-            avalon: 'アヴァロン音声ナレーター',
-            buzzer: '早押しゲーム'
+            home: 'トップページへ'
           },
           ko: {
             title: '페이지를 찾을 수 없습니다',
             lead: '이 페이지는 삭제되거나 주소가 바뀌었을 수 있고, 주소를 잘못 입력했을 수도 있습니다. 홈에서 다시 찾아보세요.',
-            home: '홈으로',
-            games: '아니면 바로 게임하기',
-            avalon: '아발론 음성 진행',
-            buzzer: '버저 게임'
+            home: '홈으로'
           },
           es: {
             title: 'Página no encontrada',
             lead: 'Puede que esta página se haya eliminado o cambiado de dirección, o que la hayas escrito mal. Empieza de nuevo desde la portada.',
-            home: 'Ir a la portada',
-            games: 'O ponte a jugar directamente',
-            avalon: 'Narrador de voz de Avalon',
-            buzzer: 'Juego de pulsadores'
+            home: 'Ir a la portada'
           },
           'zh-CN': {
             title: '找不到这个页面',
             lead: '这个网址可能已经移除、改过，或是网址打错了。从首页开始找找看吧。',
-            home: '回首页',
-            games: '或是直接玩点什么',
-            avalon: '阿瓦隆语音主持',
-            buzzer: '现场抢答游戏'
+            home: '回首页'
           }
         };
 
@@ -355,19 +377,10 @@
         document.title = s.title + ' - Web100';
         document.getElementById('title').textContent = s.title;
         document.getElementById('lead').textContent = s.lead;
-        document.getElementById('games-heading').textContent = s.games;
 
         var home = document.getElementById('home-btn');
         home.textContent = s.home;
         home.href = '/' + lang + '/';
-
-        var avalon = document.getElementById('avalon-link');
-        avalon.textContent = s.avalon;
-        avalon.href = '/avalon/' + lang;
-
-        var buzzer = document.getElementById('buzzer-link');
-        buzzer.textContent = s.buzzer;
-        buzzer.href = '/buzzer/' + lang + '/';
 
         // 深淺色跟首頁同一套：key 是 web100-theme，未設定時跟隨系統
         var themeBtn = document.getElementById('theme-toggle');
