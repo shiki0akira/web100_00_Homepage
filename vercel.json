@@ -5,7 +5,12 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "vibeweb100.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "vibeweb100.com"
+        }
+      ],
       "destination": "https://www.vibeweb100.com/$1",
       "permanent": true
     },
@@ -174,6 +179,46 @@
     {
       "source": "/buzzer/:file(app.css|app.js|header.js|favicon.svg|apple-touch-icon.png|sitemap.xml)",
       "destination": "https://web100-02-buzzer-game.shiki0akira.workers.dev/buzzer/:file"
+    },
+    {
+      "source": "/match-sitemap.xml",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/sitemap.xml"
+    },
+    {
+      "source": "/match",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match"
+    },
+    {
+      "source": "/match/",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/"
+    },
+    {
+      "source": "/match/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/:lang"
+    },
+    {
+      "source": "/match/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/:lang/"
+    },
+    {
+      "source": "/match/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(rules)",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/:lang/:page"
+    },
+    {
+      "source": "/match/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(rules)/",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/:lang/:page/"
+    },
+    {
+      "source": "/match/api/:path*",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/api/:path*"
+    },
+    {
+      "source": "/match/vendor/:path*",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/vendor/:path*"
+    },
+    {
+      "source": "/match/:file(app.css|app.js|header.js|favicon.svg|apple-touch-icon.png|sitemap.xml)",
+      "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/:file"
     },
     {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",

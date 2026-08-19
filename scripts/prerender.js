@@ -75,13 +75,18 @@ function render(lang) {
       fill('p', 'avalon-desc', s.avalonDesc),
       fill('h3', 'buzzer-title', s.buzzerTitle),
       fill('p', 'buzzer-desc', s.buzzerDesc),
+      fill('h3', 'match-title', s.matchTitle),
+      fill('p', 'match-desc', s.matchDesc),
       [/(<span class="tag" id="avalon-tag">)(<\/span>)/, `$1${esc(s.avalonTag)}$2`],
       [/(<span class="tag" id="buzzer-tag">)(<\/span>)/, `$1${esc(s.buzzerTag)}$2`],
+      [/(<span class="tag" id="match-tag">)(<\/span>)/, `$1${esc(s.matchTag)}$2`],
       // 卡片連結先給對的語言網址，爬蟲不必等 JS 執行就能順著爬到阿瓦隆。
       // 不帶尾斜線，與阿瓦隆站的 canonical 一致。
       [/(<a class="card" id="avalon-card" href=")[^"]*(")/, `$1/avalon/${lang}$2`],
       // 搶答帶尾斜線，跟它自己的 canonical 一致
       [/(<a class="card" id="buzzer-card" href=")[^"]*(")/, `$1/buzzer/${lang}/$2`],
+      // 喜好圈或叉同樣帶尾斜線，跟它自己的 canonical 一致
+      [/(<a class="card" id="match-card" href=")[^"]*(")/, `$1/match/${lang}/$2`],
     ],
     lang,
   );
