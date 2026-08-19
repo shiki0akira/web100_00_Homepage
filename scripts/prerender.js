@@ -85,7 +85,7 @@ function render(lang) {
       [/(<a class="card" id="avalon-card" href=")[^"]*(")/, `$1/avalon/${lang}$2`],
       // 搶答帶尾斜線，跟它自己的 canonical 一致
       [/(<a class="card" id="buzzer-card" href=")[^"]*(")/, `$1/buzzer/${lang}/$2`],
-      // 喜好圈或叉同樣帶尾斜線，跟它自己的 canonical 一致
+      // 喜好二選一同樣帶尾斜線，跟它自己的 canonical 一致
       [/(<a class="card" id="match-card" href=")[^"]*(")/, `$1/match/${lang}/$2`],
     ],
     lang,
