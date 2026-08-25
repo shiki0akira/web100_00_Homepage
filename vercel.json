@@ -221,6 +221,46 @@
       "destination": "https://web100-03-preference-match.shiki0akira.workers.dev/match/:file"
     },
     {
+      "source": "/bingo-sitemap.xml",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/sitemap.xml"
+    },
+    {
+      "source": "/bingo",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo"
+    },
+    {
+      "source": "/bingo/",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/"
+    },
+    {
+      "source": "/bingo/:lang(zh-TW|en)",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:lang"
+    },
+    {
+      "source": "/bingo/:lang(zh-TW|en)/",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:lang/"
+    },
+    {
+      "source": "/bingo/:lang(zh-TW|en)/:page(rules)",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:lang/:page"
+    },
+    {
+      "source": "/bingo/:lang(zh-TW|en)/:page(rules)/",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:lang/:page/"
+    },
+    {
+      "source": "/bingo/api/:path*",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/api/:path*"
+    },
+    {
+      "source": "/bingo/vendor/:path*",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/vendor/:path*"
+    },
+    {
+      "source": "/bingo/:file(app.css|app.js|header.js|favicon.svg|apple-touch-icon.png|sitemap.xml)",
+      "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:file"
+    },
+    {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
       "destination": "/:lang/index.html"
     },

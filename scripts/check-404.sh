@@ -20,6 +20,13 @@ WANT_404="
 /buzzer/nope
 /buzzer/zh-TWkk
 /buzzer/zh-TW/nope
+/match/nope
+/match/zh-TWkk
+/match/zh-TW/nope
+/bingo/nope
+/bingo/zh-TWkk
+/bingo/zh-TW/nope
+/bingo/de/
 /newproject/whatever
 "
 
@@ -45,6 +52,29 @@ MUST_WORK="
 200 /buzzer/favicon.svg
 200 /buzzer/sitemap.xml
 200 /buzzer-sitemap.xml
+302 /match
+302 /match/
+200 /match/zh-TW/
+200 /match/zh-TW/rules/
+200 /match/app.js
+200 /match/app.css
+200 /match/header.js
+200 /match/vendor/qrcode.js
+200 /match/favicon.svg
+200 /match/sitemap.xml
+200 /match-sitemap.xml
+302 /bingo
+302 /bingo/
+200 /bingo/zh-TW/
+200 /bingo/en/
+200 /bingo/zh-TW/rules/
+200 /bingo/app.js
+200 /bingo/app.css
+200 /bingo/header.js
+200 /bingo/vendor/qrcode.js
+200 /bingo/favicon.svg
+200 /bingo/sitemap.xml
+200 /bingo-sitemap.xml
 "
 
 fail=0

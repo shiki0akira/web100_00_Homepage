@@ -12,6 +12,7 @@ Web100 系列小遊戲/小工具的作品集入口首頁，純 HTML/CSS/JS，不
 | web100_01_Avalon-Voice | [www.vibeweb100.com/avalon](https://www.vibeweb100.com/avalon) | [GitHub](https://github.com/shiki0akira/web100_01_Avalon-Voice) | 已上線 |
 | web100_02_BuzzerGame | [www.vibeweb100.com/buzzer](https://www.vibeweb100.com/buzzer) | [GitHub](https://github.com/shiki0akira/web100_02_BuzzerGame) | 已上線 |
 | web100_03_PreferenceMatch | [www.vibeweb100.com/match](https://www.vibeweb100.com/match) | [GitHub](https://github.com/shiki0akira/web100_03_PreferenceMatch) | 已上線 |
+| web100_04_HappyBingo | [www.vibeweb100.com/bingo](https://www.vibeweb100.com/bingo) | [GitHub](https://github.com/shiki0akira/web100_04_HappyBingo) | 已上線 |
 
 ## 架構說明
 

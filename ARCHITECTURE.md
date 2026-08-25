@@ -129,6 +129,7 @@ vibeweb100.com/game003/*         → 第 3 個專案
 | Cloudflare Worker 路由總機 | 待實作 | Cloudflare Workers | 下一步優先要做的基礎建設 |
 | web100_02_BuzzerGame | 已上線 | Cloudflare Workers | 單一 Worker 同時服務靜態檔與 Durable Object；8 種語言，已裝 GA4 |
 | web100_03_PreferenceMatch | 已上線 | Cloudflare Workers | 二選一破冰配對，路徑 /match/；接法同搶答（網頁走代理、API 與 WebSocket 直連）|
+| web100_04_HappyBingo | 已上線 | Cloudflare Workers | 找人配對的破冰賓果，路徑 /bingo/；接法同搶答。**只出 zh-TW 與 en**，首頁卡片在其餘 6 種語言指向 /bingo/en/ |
 
 ### 搶答遊戲的特殊接法：網頁走代理、WebSocket 直連
 

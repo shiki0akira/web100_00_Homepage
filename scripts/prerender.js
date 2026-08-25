@@ -77,9 +77,12 @@ function render(lang) {
       fill('p', 'buzzer-desc', s.buzzerDesc),
       fill('h3', 'match-title', s.matchTitle),
       fill('p', 'match-desc', s.matchDesc),
+      fill('h3', 'bingo-title', s.bingoTitle),
+      fill('p', 'bingo-desc', s.bingoDesc),
       [/(<span class="tag" id="avalon-tag">)(<\/span>)/, `$1${esc(s.avalonTag)}$2`],
       [/(<span class="tag" id="buzzer-tag">)(<\/span>)/, `$1${esc(s.buzzerTag)}$2`],
       [/(<span class="tag" id="match-tag">)(<\/span>)/, `$1${esc(s.matchTag)}$2`],
+      [/(<span class="tag" id="bingo-tag">)(<\/span>)/, `$1${esc(s.bingoTag)}$2`],
       // 卡片連結先給對的語言網址，爬蟲不必等 JS 執行就能順著爬到阿瓦隆。
       // 不帶尾斜線，與阿瓦隆站的 canonical 一致。
       [/(<a class="card" id="avalon-card" href=")[^"]*(")/, `$1/avalon/${lang}$2`],
@@ -87,6 +90,15 @@ function render(lang) {
       [/(<a class="card" id="buzzer-card" href=")[^"]*(")/, `$1/buzzer/${lang}/$2`],
       // 喜好二選一同樣帶尾斜線，跟它自己的 canonical 一致
       [/(<a class="card" id="match-card" href=")[^"]*(")/, `$1/match/${lang}/$2`],
+      /*
+       * 幸福賓果只出 zh-TW 與 en 兩種語言，卡片不能照樣套 /bingo/${lang}/——
+       * 那六個語言在它站上不存在。也不指向 /bingo/ 讓它自己轉：它的 DEFAULT_LANG
+       * 是 zh-TW，德文瀏覽器會被丟到中文頁。中文歸繁中，其餘一律進英文版。
+       */
+      [
+        /(<a class="card" id="bingo-card" href=")[^"]*(")/,
+        `$1/bingo/${lang.startsWith('zh') ? 'zh-TW' : 'en'}/$2`,
+      ],
     ],
     lang,
   );
