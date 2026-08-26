@@ -90,15 +90,8 @@ function render(lang) {
       [/(<a class="card" id="buzzer-card" href=")[^"]*(")/, `$1/buzzer/${lang}/$2`],
       // 喜好二選一同樣帶尾斜線，跟它自己的 canonical 一致
       [/(<a class="card" id="match-card" href=")[^"]*(")/, `$1/match/${lang}/$2`],
-      /*
-       * 幸福賓果只出 zh-TW 與 en 兩種語言，卡片不能照樣套 /bingo/${lang}/——
-       * 那六個語言在它站上不存在。也不指向 /bingo/ 讓它自己轉：它的 DEFAULT_LANG
-       * 是 zh-TW，德文瀏覽器會被丟到中文頁。中文歸繁中，其餘一律進英文版。
-       */
-      [
-        /(<a class="card" id="bingo-card" href=")[^"]*(")/,
-        `$1/bingo/${lang.startsWith('zh') ? 'zh-TW' : 'en'}/$2`,
-      ],
+      // 幸福賓果也是 8 種語言了，帶尾斜線跟它自己的 canonical 一致
+      [/(<a class="card" id="bingo-card" href=")[^"]*(")/, `$1/bingo/${lang}/$2`],
     ],
     lang,
   );

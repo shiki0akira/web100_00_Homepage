@@ -659,9 +659,7 @@
         document.getElementById('match-title').textContent = s.matchTitle;
         document.getElementById('match-desc').textContent = s.matchDesc;
         document.getElementById('match-tag').textContent = s.matchTag;
-        // 幸福賓果只出 zh-TW 與 en，其餘語言一律進英文版（理由見 prerender.js）
-        document.getElementById('bingo-card').href =
-          '/bingo/' + (lang.indexOf('zh') === 0 ? 'zh-TW' : 'en') + '/';
+        document.getElementById('bingo-card').href = '/bingo/' + lang + '/';
         document.getElementById('bingo-title').textContent = s.bingoTitle;
         document.getElementById('bingo-desc').textContent = s.bingoDesc;
         document.getElementById('bingo-tag').textContent = s.bingoTag;

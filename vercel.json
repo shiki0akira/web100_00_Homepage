@@ -233,19 +233,19 @@
       "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/"
     },
     {
-      "source": "/bingo/:lang(zh-TW|en)",
+      "source": "/bingo/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
       "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:lang"
     },
     {
-      "source": "/bingo/:lang(zh-TW|en)/",
+      "source": "/bingo/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/",
       "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:lang/"
     },
     {
-      "source": "/bingo/:lang(zh-TW|en)/:page(rules)",
+      "source": "/bingo/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(rules)",
       "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:lang/:page"
     },
     {
-      "source": "/bingo/:lang(zh-TW|en)/:page(rules)/",
+      "source": "/bingo/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(rules)/",
       "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:lang/:page/"
     },
     {

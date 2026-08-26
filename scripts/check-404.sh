@@ -26,7 +26,6 @@ WANT_404="
 /bingo/nope
 /bingo/zh-TWkk
 /bingo/zh-TW/nope
-/bingo/de/
 /newproject/whatever
 "
 
@@ -67,7 +66,14 @@ MUST_WORK="
 302 /bingo/
 200 /bingo/zh-TW/
 200 /bingo/en/
+200 /bingo/ja/
+200 /bingo/ko/
+200 /bingo/de/
+200 /bingo/fr/
+200 /bingo/es/
+200 /bingo/zh-CN/
 200 /bingo/zh-TW/rules/
+200 /bingo/de/rules/
 200 /bingo/app.js
 200 /bingo/app.css
 200 /bingo/header.js
