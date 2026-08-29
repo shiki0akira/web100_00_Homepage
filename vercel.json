@@ -261,6 +261,38 @@
       "destination": "https://web100-04-happy-bingo.shiki0akira.workers.dev/bingo/:file"
     },
     {
+      "source": "/bomb-sitemap.xml",
+      "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb/sitemap.xml"
+    },
+    {
+      "source": "/bomb",
+      "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb"
+    },
+    {
+      "source": "/bomb/",
+      "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb/"
+    },
+    {
+      "source": "/bomb/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
+      "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb/:lang"
+    },
+    {
+      "source": "/bomb/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/",
+      "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb/:lang/"
+    },
+    {
+      "source": "/bomb/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(rules)",
+      "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb/:lang/:page"
+    },
+    {
+      "source": "/bomb/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)/:page(rules)/",
+      "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb/:lang/:page/"
+    },
+    {
+      "source": "/bomb/:file(app.css|app.js|header.js|favicon.svg|apple-touch-icon.png|sitemap.xml)",
+      "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb/:file"
+    },
+    {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
       "destination": "/:lang/index.html"
     },

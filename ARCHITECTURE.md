@@ -62,6 +62,16 @@ vibeweb100.com/game003/*         → 第 3 個專案
 
 搶答（02）實作時確認了：**靜態檔不用另外開 Cloudflare Pages**，同一個 Worker 用 assets binding 就能服務，網頁與 WebSocket 同源、不用處理 CORS，也少一個部署目標。之後需要即時連線的專案照這個做法。
 
+### 4.1 純前端也可以走 Workers（定時炸彈 05 的例外）
+
+定時炸彈（05）是純前端、沒有任何後端，照上表應該走 Vercel，但實際部署在 **Cloudflare Workers**。這條例外的理由：
+
+- Workers 的靜態資源可以做成**完全沒有 `main` 的 assets-only Worker**——一行程式都不用寫，就只是把 `dist/` 丟上去。當初把純前端指向 Vercel，是因為那時以為「用 Worker 就得寫 Worker」；現在不必了
+- 這樣整個系列的部署只剩一個平台、一套 `wrangler deploy`、一種 rewrite 寫法（`*.workers.dev`）。02～05 現在完全一致，少一組要記的操作差異
+- Vercel 那邊每多一個專案就多一個要維護的匯入設定，而它換來的好處在這個案例是零
+
+**判斷準則改成這樣：** 需要即時連線 → Workers（有 `main`）；純前端 → Workers（assets-only，沒有 `main`）。阿瓦隆（01）留在 Vercel 不動，它已經上線且穩定，為了統一而搬家不划算。
+
 ## 5. Repo 策略
 
 維持「一個專案一個 GitHub repo」，不做 monorepo：
@@ -130,6 +140,7 @@ vibeweb100.com/game003/*         → 第 3 個專案
 | web100_02_BuzzerGame | 已上線 | Cloudflare Workers | 單一 Worker 同時服務靜態檔與 Durable Object；8 種語言，已裝 GA4 |
 | web100_03_PreferenceMatch | 已上線 | Cloudflare Workers | 二選一破冰配對，路徑 /match/；接法同搶答（網頁走代理、API 與 WebSocket 直連）|
 | web100_04_HappyBingo | 已上線 | Cloudflare Workers | 找人配對的破冰賓果，路徑 /bingo/；接法同搶答。上線時只有 zh-TW／en，2026-08-26 補齊 8 種語言 |
+| web100_05_TimeBomb | 已上線 | Cloudflare Workers | 一台手機傳著玩的定時炸彈，路徑 /bomb/；8 種語言。**純前端卻走 Workers**，是第 4 節那條規則的例外，理由見下方 |
 
 ### 搶答遊戲的特殊接法：網頁走代理、WebSocket 直連
 

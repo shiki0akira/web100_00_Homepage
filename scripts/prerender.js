@@ -79,10 +79,13 @@ function render(lang) {
       fill('p', 'match-desc', s.matchDesc),
       fill('h3', 'bingo-title', s.bingoTitle),
       fill('p', 'bingo-desc', s.bingoDesc),
+      fill('h3', 'bomb-title', s.bombTitle),
+      fill('p', 'bomb-desc', s.bombDesc),
       [/(<span class="tag" id="avalon-tag">)(<\/span>)/, `$1${esc(s.avalonTag)}$2`],
       [/(<span class="tag" id="buzzer-tag">)(<\/span>)/, `$1${esc(s.buzzerTag)}$2`],
       [/(<span class="tag" id="match-tag">)(<\/span>)/, `$1${esc(s.matchTag)}$2`],
       [/(<span class="tag" id="bingo-tag">)(<\/span>)/, `$1${esc(s.bingoTag)}$2`],
+      [/(<span class="tag" id="bomb-tag">)(<\/span>)/, `$1${esc(s.bombTag)}$2`],
       // 卡片連結先給對的語言網址，爬蟲不必等 JS 執行就能順著爬到阿瓦隆。
       // 不帶尾斜線，與阿瓦隆站的 canonical 一致。
       [/(<a class="card" id="avalon-card" href=")[^"]*(")/, `$1/avalon/${lang}$2`],
@@ -92,6 +95,8 @@ function render(lang) {
       [/(<a class="card" id="match-card" href=")[^"]*(")/, `$1/match/${lang}/$2`],
       // 幸福賓果也是 8 種語言了，帶尾斜線跟它自己的 canonical 一致
       [/(<a class="card" id="bingo-card" href=")[^"]*(")/, `$1/bingo/${lang}/$2`],
+      // 定時炸彈同樣帶尾斜線
+      [/(<a class="card" id="bomb-card" href=")[^"]*(")/, `$1/bomb/${lang}/$2`],
     ],
     lang,
   );
