@@ -257,7 +257,7 @@
         fill: var(--color-brand-logo);
       }
 
-      header .brand h1 { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
+      header .brand .brand-name { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
 
       .controls { display: flex; align-items: center; gap: var(--space-1); }
 
@@ -355,7 +355,7 @@
 
       main { max-width: 960px; margin: 0 auto; padding: var(--space-4) var(--space-3); }
 
-      .hero h2 { font-size: var(--font-size-h1); margin: 0 0 var(--space-1) 0; }
+      .hero h1 { font-size: var(--font-size-h1); margin: 0 0 var(--space-1) 0; }
       .hero p { margin: 0 0 var(--space-4) 0; color: var(--color-text-muted); }
       body.light .hero p { color: var(--color-text-muted-light); }
 
@@ -388,6 +388,16 @@
 
       .card:hover { transform: translateY(-2px); border-color: var(--color-accent); }
       .card h3 { margin: 0 0 var(--space-1) 0; font-size: var(--font-size-h2); }
+
+      /* 說明長文。跟卡片同一個容器寬度，但不做成卡片——它是讀的東西，不是點的東西 */
+      .article { margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-4); }
+      .article:empty { display: none; }
+      .article h2 { font-size: var(--font-size-h2); margin: 0 0 var(--space-2) 0; }
+      .article p { margin: 0 0 var(--space-2) 0; color: var(--color-text-muted); line-height: 1.75; }
+      .article p:last-child { margin-bottom: 0; }
+      .article strong { color: var(--color-text); font-weight: 700; }
+      body.light .article p { color: var(--color-text-muted-light); }
+      body.light .article strong { color: var(--color-text-light); }
       .card p { margin: 0; color: var(--color-text-muted); font-size: 0.9rem; }
       body.light .card p { color: var(--color-text-muted-light); }
 
@@ -422,7 +432,7 @@
     <header>
       <div class="brand">
         <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="4 20 172 140" aria-hidden="true"><path d="M176 160H127.315C107.994 160 92.3316 144.33 92.3316 125V106.332H103.873V101.667H92.3316V90H87.6684V101.667H76.8814V106.332H87.6684V125C87.6684 144.33 72.0056 160 52.6853 160H4V20H8.95652C28.2768 20.0003 43.9396 35.6702 43.9396 55V90H48.6028V55C48.6028 35.6702 64.2656 20.0003 83.5859 20H96.4141C115.734 20.0003 131.397 35.6702 131.397 55V90H136.06V55C136.06 35.6702 151.723 20.0003 171.043 20H176V160Z"/></svg>
-        <h1>Web100</h1>
+        <span class="brand-name">Web100</span>
       </div>
       <div class="controls">
         <span class="select-wrap"><select id="lang-switcher" aria-label="Select language"></select></span>
@@ -435,7 +445,7 @@
 
     <main>
       <div class="hero">
-        <h2 id="hero-title"></h2>
+        <h1 id="hero-title"></h1>
         <p id="hero-tagline"></p>
       </div>
 
@@ -470,6 +480,12 @@
           <span class="tag" id="bomb-tag"></span>
         </a>
       </div>
+
+      <!--
+        說明長文。**只有部分語言有**（目前 zh-TW），沒有的語言這一整塊是空的。
+        刻意不把中文丟翻譯 API 生八種語言：那正是 2026/8 被演算法降權的成因。
+      -->
+      <div class="article" id="home-article"></div>
     </main>
 
     <footer>&copy; 2026 Web100 Series</footer>
@@ -484,8 +500,9 @@
 
       var STRINGS = {
         'zh-TW': {
-          heroTitle: '100 個破冰遊戲與小工具，全部免安裝直接玩',
-          heroTagline: 'AI 打造的迷你遊戲合集，手機瀏覽器打開就能玩，不用下載 App，不用註冊帳號。適合聚會、團康、課堂破冰，持續新增中。',
+          heroTitle: '找破冰遊戲？不用讀文章，直接拿手機出來玩',
+          heroTagline:
+            '每一個都是打開網頁就能開始的現場工具，不用下載 App、不用註冊帳號。小組聚會、團契迎新、公司團康、課堂破冰都適用，持續新增中。',
           avalonTitle: '阿瓦隆語音主持',
           avalonDesc: '設定人數與角色，自動唸出主持人旁白台詞，不用自己背稿，直接開局。',
           avalonTag: '聚會遊戲',
@@ -501,8 +518,47 @@
           bombTitle: '定時炸彈',
           bombDesc: '一台手機傳著玩，畫面出一題做完就傳給下一個人，爆在誰手上誰就輸。',
           bombTag: '破冰遊戲',
-          seoTitle: 'Web100｜100 個免安裝破冰遊戲與小工具合集',
-          seoDesc: 'Web100 是用生成式 AI 打造的破冰遊戲與小工具合集，手機瀏覽器打開就能玩，不用下載 App、不用註冊帳號。適合聚會、團康、課堂破冰，持續新增中，目前已收錄阿瓦隆語音主持等聚會遊戲。',
+          seoTitle: '破冰遊戲工具箱｜手機打開就能玩，現場免安裝免註冊',
+          seoDesc:
+            '找破冰遊戲不用再讀一篇又一篇的推薦文章——這裡每一個都是打開手機就能直接玩的工具。定時炸彈、幸福賓果、喜好二選一、現場搶答、阿瓦隆語音主持，免下載 App、免註冊帳號。適合小組聚會、團契迎新、公司團康與課堂破冰，持續新增中。',
+          homeArticle: [
+            {
+              h: '現場要帶破冰，該選哪一個？',
+              p: [
+                '先看你手上有多少時間、現場多少人、大家彼此熟不熟——這三件事決定要帶哪一個，比看「十大破冰遊戲推薦」有用得多。',
+                '**五到十分鐘、大家還很陌生：**玩**喜好二選一**。每個人回答一連串二選一，答完自動分組，還會列出你們的共同話題，等於直接幫大家找到可以聊的東西。',
+                '**十五分鐘以上、想讓大家真的講到話：**玩**幸福賓果**。卡片上不是數字，是「今年第一次來的人」這種描述，要在現場走動找到符合的人、請他確認才算打勾。',
+                '**只有一支手機、想快速炒熱氣氛：**玩**定時炸彈**。手機當炸彈圍成一圈傳，畫面出一題做完就傳給下一個人，爆在誰手上誰就輸。這是唯一一個不需要每個人都有手機的。',
+                '**已經有題目、只缺搶答工具：**用**現場搶答**。掃 QR code 加入房間，按鈕搶答即時排名，主持人不用再看誰先舉手。',
+                '**要帶桌遊阿瓦隆：**用**阿瓦隆語音主持**。設定人數與角色後自動唸旁白，主持人不用背台詞，也能一起玩。',
+              ],
+            },
+            {
+              h: '一支手機就能玩，還是每人一支？',
+              p: [
+                '這是現場最實際的問題，五個遊戲分成兩種。',
+                '**定時炸彈只要一支手機。**那支手機就是道具本身，圍成一圈傳。臨時起意、或是現場有人沒帶手機、訊號不好，選這個最保險——第一次載入之後就在瀏覽器裡跑完，不需要一直連著網路。',
+                '**其餘四個是每人一支手機。**主持人開房、其他人掃 QR code 加入，不用註冊帳號也不用輸入 Email，填個名字就開始。人數多的時候這種反而更順，因為所有人同時參與，不用排隊等輪到自己。',
+              ],
+            },
+            {
+              h: '為什麼是工具，不是一篇推薦文章',
+              p: [
+                '搜尋「破冰遊戲」跑出來的幾乎都是清單文：十五個遊戲、每個三行說明。問題是讀完之後，你還要自己準備道具、自己想題目、自己計時、自己記分——真正花時間的部分一件都沒被解決。',
+                '這裡的每一個連結都是**打開就能開始的東西**。題目已經寫好、計時器已經在跑、分組與排名自動算完。你要做的只有把網址給大家，或是把手機遞出去。',
+                '全部免費、不用下載 App、不用註冊帳號，手機瀏覽器直接開。做這些是因為自己每週要帶小組，每次都在活動前一晚翻文章找遊戲、再花半小時準備道具——那半小時本來就不該存在。',
+              ],
+            },
+            {
+              h: '常見問題',
+              p: [
+                '**要付費或下載 App 嗎？**都不用。全部是網頁，手機瀏覽器打開就能玩，也不會要你註冊帳號。',
+                '**幾個人可以玩？**大部分兩個人就玩得起來，四到十二人最順。定時炸彈建議三人以上，圈子太小懸念會不夠。',
+                '**現場網路不好怎麼辦？**定時炸彈第一次載入之後就不需要網路了。其餘四個要連線同步，建議先確認現場有訊號或開熱點。',
+                '**可以用自己的題目嗎？**定時炸彈、幸福賓果、喜好二選一都可以自己加題目，加過的會留在你的裝置上，下次打開還在。',
+              ],
+            },
+          ],
         },
         en: {
           heroTitle: '100 icebreaker games & tools — all playable instantly, no install',
@@ -669,6 +725,50 @@
         return SUPPORTED_LANGS.indexOf(seg) !== -1 ? seg : null;
       }
 
+      /*
+       * 卡片下方那篇說明長文。**只有部分語言有**（目前 zh-TW），沒有的語言整塊清空。
+       *
+       * 一定要在這裡也畫一次、不能只靠 prerender：切換語言走的是 pushState +
+       * renderForLang，不會重新載入頁面，只在伺服器端產生的話，從中文切到英文時
+       * 那一大段中文會留在畫面上。
+       *
+       * 段落裡的 **重點** 用 DOM 節點拼出 <strong>，不走 innerHTML——
+       * 文案是自己寫的沒錯，但這一頁沒有任何地方需要塞 HTML，留一個入口沒有好處。
+       */
+      function renderArticle(sections) {
+        var host = document.getElementById('home-article');
+        if (!host) return;
+
+        host.textContent = '';
+        if (!sections || !sections.length) return;
+
+        sections.forEach(function (section) {
+          var block = document.createElement('section');
+
+          var heading = document.createElement('h2');
+          heading.textContent = section.h;
+          block.appendChild(heading);
+
+          section.p.forEach(function (text) {
+            var paragraph = document.createElement('p');
+            // 以 ** 切開，奇數段就是要加粗的部分
+            text.split('**').forEach(function (piece, index) {
+              if (!piece) return;
+              if (index % 2 === 1) {
+                var strong = document.createElement('strong');
+                strong.textContent = piece;
+                paragraph.appendChild(strong);
+              } else {
+                paragraph.appendChild(document.createTextNode(piece));
+              }
+            });
+            block.appendChild(paragraph);
+          });
+
+          host.appendChild(block);
+        });
+      }
+
       function renderForLang(lang) {
         document.documentElement.lang = lang;
 
@@ -697,6 +797,7 @@
         document.getElementById('bomb-title').textContent = s.bombTitle;
         document.getElementById('bomb-desc').textContent = s.bombDesc;
         document.getElementById('bomb-tag').textContent = s.bombTag;
+        renderArticle(s.homeArticle);
 
         // 依語言更新 title / description / OG 標籤，而不是永遠停留在寫死的預設值
         var canonicalUrl = window.location.origin + '/' + lang + '/';

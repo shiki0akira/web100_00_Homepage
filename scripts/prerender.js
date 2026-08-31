@@ -41,6 +41,80 @@ function applyAll(html, rules, lang) {
   }, html);
 }
 
+/*
+ * 長文的段落。**重點** 轉成 <strong>，跟執行期 renderArticle() 畫出來的結構一致，
+ * 不然爬蟲看到的跟使用者看到的會是兩種東西。
+ *
+ * **先跳脫再轉換**：跳脫過的文字裡不可能再出現 < 或 >，所以加進去的 <strong>
+ * 是唯一的標籤。順序反過來就是一個注入點。
+ */
+function articleHtml(sections) {
+  if (!Array.isArray(sections) || !sections.length) return '';
+
+  return sections
+    .map((section) => {
+      const paragraphs = section.p
+        .map((text) => `          <p>${esc(text).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')}</p>`)
+        .join('\n');
+      return `\n        <section>\n          <h2>${esc(section.h)}</h2>\n${paragraphs}\n        </section>`;
+    })
+    .join('') + '\n      ';
+}
+
+/*
+ * 結構化資料。
+ *
+ * 重點是 ItemList：搜尋「破冰遊戲」的人看到的整頁都是文章，這裡要讓機器讀懂
+ * 這一頁是**一份可以直接開來玩的工具清單**，而不是第十六篇推薦文。
+ * 每一項都指到實際的遊戲頁，順序跟畫面上的卡片一致。
+ */
+function jsonLd(s, lang, url) {
+  const games = [
+    { name: s.avalonTitle, desc: s.avalonDesc, path: `/avalon/${lang}` },
+    { name: s.buzzerTitle, desc: s.buzzerDesc, path: `/buzzer/${lang}/` },
+    { name: s.matchTitle, desc: s.matchDesc, path: `/match/${lang}/` },
+    { name: s.bingoTitle, desc: s.bingoDesc, path: `/bingo/${lang}/` },
+    { name: s.bombTitle, desc: s.bombDesc, path: `/bomb/${lang}/` },
+  ];
+
+  const data = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE}/#website`,
+        url: SITE,
+        name: 'Web100',
+        description: s.seoDesc,
+        inLanguage: lang,
+      },
+      {
+        '@type': 'ItemList',
+        name: s.heroTitle,
+        itemListOrder: 'https://schema.org/ItemListUnordered',
+        numberOfItems: games.length,
+        itemListElement: games.map((game, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': 'WebApplication',
+            name: game.name,
+            description: game.desc,
+            url: SITE + game.path,
+            applicationCategory: 'GameApplication',
+            operatingSystem: 'Any',
+            isAccessibleForFree: true,
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'TWD' },
+          },
+        })),
+      },
+    ],
+  };
+
+  // 把 < 跳成 \u003c：文案裡萬一出現 </script> 才不會提早關掉標籤
+  return `    <script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
+}
+
 function render(lang) {
   const s = STRINGS[lang];
   const url = langUrl(lang);
@@ -69,7 +143,7 @@ function render(lang) {
       [/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`],
       // hreflang 接在 canonical 之後，讓網址相關的標籤集中在一起
       [/(<link rel="canonical"[^>]*>)/, `$1\n${alternates}\n${xDefault}`],
-      fill('h2', 'hero-title', s.heroTitle),
+      fill('h1', 'hero-title', s.heroTitle),
       fill('p', 'hero-tagline', s.heroTagline),
       fill('h3', 'avalon-title', s.avalonTitle),
       fill('p', 'avalon-desc', s.avalonDesc),
@@ -97,6 +171,11 @@ function render(lang) {
       [/(<a class="card" id="bingo-card" href=")[^"]*(")/, `$1/bingo/${lang}/$2`],
       // 定時炸彈同樣帶尾斜線
       [/(<a class="card" id="bomb-card" href=")[^"]*(")/, `$1/bomb/${lang}/$2`],
+      // 說明長文。只有部分語言有（目前 zh-TW），沒有的語言這個容器維持空的
+      [/(<div class="article" id="home-article">)(<\/div>)/, `$1${articleHtml(s.homeArticle)}$2`],
+      // 結構化資料：宣告這是一個「工具集合」而不是一篇文章
+      [/(<link rel="canonical"[^>]*>)/, `$1
+${jsonLd(s, lang, url)}`],
     ],
     lang,
   );
