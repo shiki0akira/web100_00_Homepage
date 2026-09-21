@@ -305,8 +305,12 @@
       "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/"
     },
     {
-      "source": "/happiness/:short(h?[1-7])",
-      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:short(h?[1-7])"
+      "source": "/happiness/:n([1-7])",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:n"
+    },
+    {
+      "source": "/happiness/:n(h[1-7])",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:n"
     },
     {
       "source": "/happiness/zh-TW",
