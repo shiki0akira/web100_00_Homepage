@@ -418,7 +418,7 @@
       body.light .placeholder { background: transparent; box-shadow: none; }
 
       /* ── 幸福模擬器的卡片 ──
-         尺寸跟其他卡片一樣，只換皮：幸福模擬器自己的像素風。
+         尺寸和圓角跟其他卡片一樣，只換皮：幸福模擬器自己的像素風（粗邊框、硬陰影）。
          配色取自 happiness 的 pixel.css，深淺兩套跟著首頁的 body.light 切換。 */
       .card.happy {
         --h-surface: #182124;
@@ -435,7 +435,7 @@
         color: var(--h-ink);
         border: 3px solid var(--h-edge);
         padding: calc(var(--space-3) - 2px); /* 邊框比其他卡片粗 2px，扣回來讓整排一樣高 */
-        border-radius: 0;
+        border-radius: var(--radius);
         box-shadow: 5px 5px 0 var(--h-hard);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
