@@ -293,6 +293,62 @@
       "destination": "https://web100-05-time-bomb.shiki0akira.workers.dev/bomb/:file"
     },
     {
+      "source": "/happiness-sitemap.xml",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/sitemap.xml"
+    },
+    {
+      "source": "/happiness",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness"
+    },
+    {
+      "source": "/happiness/",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/"
+    },
+    {
+      "source": "/happiness/:short(h?[1-7])",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:short(h?[1-7])"
+    },
+    {
+      "source": "/happiness/zh-TW",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/zh-TW"
+    },
+    {
+      "source": "/happiness/zh-TW/",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/zh-TW/"
+    },
+    {
+      "source": "/happiness/:w(w[1-7])/zh-TW",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/zh-TW"
+    },
+    {
+      "source": "/happiness/:w(w[1-7])/zh-TW/",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/zh-TW/"
+    },
+    {
+      "source": "/happiness/:w(w[1-7])/zh-TW/:page(p|h)",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/zh-TW/:page(p|h)"
+    },
+    {
+      "source": "/happiness/:w(w[1-7])/zh-TW/:page(p|h)/",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/zh-TW/:page(p|h)/"
+    },
+    {
+      "source": "/happiness/:w(w[1-7])/:file(host.js|notes.js|player.js)",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/:file(host.js|notes.js|player.js)"
+    },
+    {
+      "source": "/happiness/:w(w[1-7])/art/:file*",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/art/:file*"
+    },
+    {
+      "source": "/happiness/shared/:path*",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/shared/:path*"
+    },
+    {
+      "source": "/happiness/api/new-room",
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/api/new-room"
+    },
+    {
       "source": "/:lang(zh-TW|en|de|fr|ja|ko|es|zh-CN)",
       "destination": "/:lang/index.html"
     },

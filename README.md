@@ -14,6 +14,7 @@ Web100 系列小遊戲/小工具的作品集入口首頁，純 HTML/CSS/JS，不
 | web100_03_PreferenceMatch | [www.vibeweb100.com/match](https://www.vibeweb100.com/match) | [GitHub](https://github.com/shiki0akira/web100_03_PreferenceMatch) | 已上線 |
 | web100_04_HappyBingo | [www.vibeweb100.com/bingo](https://www.vibeweb100.com/bingo) | [GitHub](https://github.com/shiki0akira/web100_04_HappyBingo) | 已上線 |
 | web100_05_TimeBomb | [www.vibeweb100.com/bomb](https://www.vibeweb100.com/bomb) | [GitHub](https://github.com/shiki0akira/web100_05_TimeBomb) | 已上線 |
+| web100_06_HappinessSimulator | [www.vibeweb100.com/happiness](https://www.vibeweb100.com/happiness/zh-TW/) | [GitHub](https://github.com/shiki0akira/web100_06_HappinessSimulator) | 已上線 |
 
 ## 架構說明
 

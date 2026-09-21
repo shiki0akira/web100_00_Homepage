@@ -26,6 +26,11 @@ WANT_404="
 /bingo/nope
 /bingo/zh-TWkk
 /bingo/zh-TW/nope
+/happiness/nope
+/happiness/8
+/happiness/zh-TWkk
+/happiness/w1/zh-TW/nope
+/happiness/w8/zh-TW/
 /newproject/whatever
 "
 
@@ -78,6 +83,20 @@ MUST_WORK="
 200 /bingo/app.css
 200 /bingo/header.js
 200 /bingo/vendor/qrcode.js
+302 /happiness
+302 /happiness/
+302 /happiness/3
+302 /happiness/h3
+200 /happiness/zh-TW/
+200 /happiness/w1/zh-TW/
+200 /happiness/w7/zh-TW/p/
+200 /happiness/w7/zh-TW/h/
+200 /happiness/w1/host.js
+200 /happiness/w1/art/standards.svg
+200 /happiness/shared/room-client.js
+200 /happiness/shared/logo.svg
+200 /happiness/api/new-room
+200 /happiness-sitemap.xml
 200 /bingo/favicon.svg
 200 /bingo/sitemap.xml
 200 /bingo-sitemap.xml
