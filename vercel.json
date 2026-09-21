@@ -322,27 +322,27 @@
     },
     {
       "source": "/happiness/:w(w[1-7])/zh-TW",
-      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/zh-TW"
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w/zh-TW"
     },
     {
       "source": "/happiness/:w(w[1-7])/zh-TW/",
-      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/zh-TW/"
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w/zh-TW/"
     },
     {
       "source": "/happiness/:w(w[1-7])/zh-TW/:page(p|h)",
-      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/zh-TW/:page(p|h)"
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w/zh-TW/:page"
     },
     {
       "source": "/happiness/:w(w[1-7])/zh-TW/:page(p|h)/",
-      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/zh-TW/:page(p|h)/"
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w/zh-TW/:page/"
     },
     {
       "source": "/happiness/:w(w[1-7])/:file(host.js|notes.js|player.js)",
-      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/:file(host.js|notes.js|player.js)"
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w/:file"
     },
     {
       "source": "/happiness/:w(w[1-7])/art/:file*",
-      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w(w[1-7])/art/:file*"
+      "destination": "https://happiness-simulator.shiki0akira.workers.dev/happiness/:w/art/:file*"
     },
     {
       "source": "/happiness/shared/:path*",
