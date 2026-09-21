@@ -13,9 +13,6 @@
     <meta property="og:title" content="Web100｜100 個免安裝破冰遊戲與小工具合集" />
     <meta property="og:description" content="Web100 是用生成式 AI 打造的破冰遊戲與小工具合集，手機瀏覽器打開就能玩，不用下載 App、不用註冊帳號。適合聚會、團康、課堂破冰，持續新增中，目前已收錄阿瓦隆語音主持等聚會遊戲。" />
     <meta property="og:url" content="https://www.vibeweb100.com/zh-TW/" />
-    <!-- 幸福模擬器那一塊的像素字。text= 只抓用得到的字元，整份字型只剩幾 KB -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap&amp;text=WEB100_6%C2%B7HAPINSMULTORLV01234567%20" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7PE5687BG"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -420,16 +417,10 @@
       .placeholder { border-style: dashed; background: transparent; }
       body.light .placeholder { background: transparent; box-shadow: none; }
 
-      /* ── 互動信息分享（幸福模擬器）──
-         這一塊用幸福模擬器自己的像素風：硬邊框、硬陰影、沒有圓角、等寬像素字。
+      /* ── 幸福模擬器的卡片 ──
+         尺寸跟其他卡片一樣，只換皮：幸福模擬器自己的像素風。
          配色取自 happiness 的 pixel.css，深淺兩套跟著首頁的 body.light 切換。 */
-      .special { margin-top: var(--space-4); }
-      .special h2 { font-size: var(--font-size-h2); margin: 0 0 var(--space-1) 0; }
-      .special-desc { margin: 0 0 var(--space-3) 0; color: var(--color-text-muted); }
-      body.light .special-desc { color: var(--color-text-muted-light); }
-
-      .happy {
-        --h-ground: #0d1315;
+      .card.happy {
         --h-surface: #182124;
         --h-ink: #e9f1ec;
         --h-ink-2: #a7bbb4;
@@ -437,22 +428,20 @@
         --h-hard: #04080a;
         --h-root: #54d6af;
         --h-vol: #ff8a4c;
-        --h-scan: rgba(255, 255, 255, 0.035);
-        --h-pixel: 'Press Start 2P', ui-monospace, monospace;
+        --h-tag-bg: #113a32;
 
-        display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: var(--space-3);
-        padding: var(--space-3);
+        position: relative;
         background: var(--h-surface);
         color: var(--h-ink);
-        border: 4px solid var(--h-edge);
-        box-shadow: 6px 6px 0 var(--h-hard);
-        text-decoration: none;
+        border: 3px solid var(--h-edge);
+        padding: calc(var(--space-3) - 2px); /* 邊框比其他卡片粗 2px，扣回來讓整排一樣高 */
+        border-radius: 0;
+        box-shadow: 5px 5px 0 var(--h-hard);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
         transition: transform 0.12s steps(2), box-shadow 0.12s steps(2);
       }
-      body.light .happy {
-        --h-ground: #e7ebe3;
+      body.light .card.happy {
         --h-surface: #ffffff;
         --h-ink: #0e1512;
         --h-ink-2: #3f534c;
@@ -460,63 +449,23 @@
         --h-hard: #0e1512;
         --h-root: #0b7a63;
         --h-vol: #c4491a;
-        --h-scan: rgba(0, 0, 0, 0.035);
+        --h-tag-bg: #c8e4da;
+        background: var(--h-surface);
+        color: var(--h-ink);
+        border-color: var(--h-edge);
+        box-shadow: 5px 5px 0 var(--h-hard);
       }
-      /* 像素遊戲的按鈕感：往左上浮起、影子拉長，而不是上面卡片那種柔和的位移 */
-      .happy:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--h-hard); }
-      .happy:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--h-hard); }
-      .happy:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
-
-      .happy-eyebrow { font-family: var(--h-pixel); font-size: 0.6rem; letter-spacing: 0.06em; color: var(--h-ink-2); }
-      .happy h3 { margin: var(--space-2) 0 var(--space-1); font-size: var(--font-size-h1); font-weight: 900; letter-spacing: 0.04em; }
-      .happy-lead { margin: 0 0 var(--space-2); font-size: 1.1rem; font-weight: 700; line-height: 1.6; }
-      .happy-desc { margin: 0 0 var(--space-2); color: var(--h-ink-2); font-size: 0.9rem; line-height: 1.75; }
-      .happy-meta { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: 0 0 var(--space-2); padding: 0; list-style: none; }
-      .happy-meta li { border: 2px solid var(--h-edge); padding: 2px 8px; font-size: 0.75rem; font-weight: 600; color: var(--h-ink-2); }
-      .happy-cta { font-weight: 700; color: var(--h-root); }
-
-      /* 大螢幕：兩條線。上面（橘）被生活推來推去，底下（綠）只會往上長，最後越過上面那條 */
-      .happy-screen {
-        position: relative;
-        min-height: 180px;
-        background:
-          repeating-linear-gradient(0deg, var(--h-scan) 0 2px, transparent 2px 4px),
-          var(--h-ground);
-        border: 4px solid var(--h-edge);
-      }
-      .happy-screen svg { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); overflow: visible; }
-      .happy-screen polyline { fill: none; stroke-width: 4px; stroke-linecap: square; vector-effect: non-scaling-stroke; }
-      .happy-screen .line-vol { stroke: var(--h-vol); }
-      .happy-screen .line-root { stroke: var(--h-root); }
-
-      /* 七關，一格一關 */
-      .happy-weeks {
-        grid-column: 1 / -1;
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: var(--space-1);
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-      .happy-weeks li {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        padding: 8px;
-        background: var(--h-ground);
-        border: 2px solid var(--h-edge);
-        font-size: 0.8rem;
-        font-weight: 700;
-        line-height: 1.4;
-      }
-      .happy-weeks b { font-family: var(--h-pixel); font-size: 0.6rem; font-weight: 400; color: var(--h-root); }
-
-      @media (max-width: 720px) {
-        .happy { grid-template-columns: 1fr; }
-        .happy-screen { order: -1; min-height: 120px; }
-        .happy-weeks { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-      }
+      /* 像素遊戲的按鈕感：往左上浮起、影子拉長；按下去整個貼平 */
+      .card.happy:hover { transform: translate(-2px, -2px); border-color: var(--h-edge); box-shadow: 7px 7px 0 var(--h-hard); }
+      .card.happy:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--h-hard); }
+      .card.happy h3 { padding-right: 76px; } /* 讓出右上角那兩條線的位置 */
+      .card.happy p, body.light .card.happy p { color: var(--h-ink-2); }
+      .card.happy .tag { border-radius: 0; background: var(--h-tag-bg); color: var(--h-root); }
+      body.light .card.happy .tag { color: #0e1512; }
+      .happy-lines { position: absolute; top: var(--space-3); right: var(--space-3); width: 64px; height: 36px; overflow: visible; }
+      .happy-lines polyline { fill: none; stroke-width: 2; stroke-linecap: square; }
+      .happy-lines .line-vol { stroke: var(--h-vol); }
+      .happy-lines .line-root { stroke: var(--h-root); }
 
       footer {
         margin-top: var(--space-4);
@@ -580,35 +529,24 @@
           <p id="bomb-desc"></p>
           <span class="tag" id="bomb-tag"></span>
         </a>
+
+        <!--
+          幸福模擬器。跟其他卡片一樣大、放在同一個格子裡，但用它自己的像素風
+          （硬邊框、硬陰影、沒有圓角，配色取自 happiness 的 pixel.css）——它不是打開就玩的小遊戲，
+          是主持人帶的七關互動信息，而且只有繁體中文。右上角那兩條線就是遊戲裡的
+          「幸福指數」（被生活推來推去）和「幸福根基」（只會往上長）。
+        -->
+        <a class="card happy" id="happy-card" href="/happiness/zh-TW/">
+          <svg class="happy-lines" viewBox="0 0 32 18" aria-hidden="true" shape-rendering="crispEdges">
+            <polyline class="line-vol" points="0,5 5,5 5,3 10,3 10,8 16,8 16,6 21,6 21,11 27,11 27,8 32,8" />
+            <polyline class="line-root" points="0,16 6,16 6,14 12,14 12,12 18,12 18,9 24,9 24,5 28,5 28,2 32,2" />
+          </svg>
+          <h3 id="happy-title"></h3>
+          <p id="happy-desc"></p>
+          <span class="tag" id="happy-tag"></span>
+        </a>
       </div>
 
-      <!--
-        互動信息分享：幸福模擬器。刻意不做成跟上面一樣的卡片——它不是打開就玩的小遊戲，
-        是主持人帶的七關系列，而且只有繁體中文。用它自己的像素風（配色取自
-        happiness 的 pixel.css），畫面上那兩條線就是遊戲裡的「幸福指數」和「幸福根基」。
-        之後首頁改版，這一區會變成「互動分享」這個分類的入口。
-      -->
-      <section class="special" aria-labelledby="happy-sec-title">
-        <h2 id="happy-sec-title"></h2>
-        <p class="special-desc" id="happy-sec-desc"></p>
-        <a class="happy" id="happy-card" href="/happiness/zh-TW/">
-          <div class="happy-text">
-            <span class="happy-eyebrow">WEB100_06 · HAPPINESS SIMULATOR</span>
-            <h3 id="happy-title"></h3>
-            <p class="happy-lead" id="happy-lead"></p>
-            <p class="happy-desc" id="happy-desc"></p>
-            <ul class="happy-meta" id="happy-meta"></ul>
-            <span class="happy-cta"><span id="happy-cta"></span> →</span>
-          </div>
-          <div class="happy-screen" aria-hidden="true">
-            <svg viewBox="0 0 64 36" preserveAspectRatio="none" shape-rendering="crispEdges">
-              <polyline class="line-vol" points="0,9 8,9 8,6 16,6 16,13 24,13 24,10 32,10 32,18 40,18 40,12 48,12 48,20 56,20 56,15 64,15" />
-              <polyline class="line-root" points="0,31 10,31 10,29 20,29 20,26 30,26 30,23 40,23 40,19 48,19 48,13 56,13 56,7 64,7" />
-            </svg>
-          </div>
-          <ol class="happy-weeks" id="happy-weeks"></ol>
-        </a>
-      </section>
 
       <!--
         說明長文。**只有部分語言有**（目前 zh-TW），沒有的語言這一整塊是空的。
@@ -647,14 +585,9 @@
           bombTitle: '定時炸彈',
           bombDesc: '一台手機傳著玩，畫面出一題做完就傳給下一個人，爆在誰手上誰就輸。',
           bombTag: '快速破冰',
-          happySecTitle: '互動信息分享',
-          happySecDesc: '一種新的分享方式：信息照講，講到轉折處畫面跳成互動頁，全場拿手機一起參與。',
           happyTitle: '幸福模擬器',
-          happyLead: '幸福不是一個分數。但如果它是，你會給自己打幾分？',
-          happyDesc: '為小組聚會設計的七關互動信息。主持人用大螢幕帶，每個人拿手機拍賣、投票、做選擇，看著自己的幸福指數被生活推來推去——還有底下那條只會往上長的線。',
-          happyMeta: ['七關 · 每關 20–25 分鐘', '大螢幕＋每人一支手機', '需要一位主持人'],
-          happyCta: '看七關',
-          happyWeeks: ['真幸福', '真相大白', '萬世巨星', '幸福連線', '當上帝來敲門', '十字架的勝利', '釋放與自由'],
+          happyDesc: '七關互動信息，主持人用大螢幕帶，全場拿手機一起參與。',
+          happyTag: '互動信息分享',
           seoTitle: '破冰遊戲工具箱｜手機打開就能玩，現場免安裝免註冊',
           seoDesc:
             '找破冰遊戲不用再讀一篇又一篇的推薦文章——這裡每一個都是打開手機就能直接玩的工具。定時炸彈、幸福賓果、喜好二選一、現場搶答、阿瓦隆語音主持，免下載 App、免註冊帳號。適合小組聚會、團契迎新、公司團康與課堂破冰，持續新增中。',
@@ -715,14 +648,9 @@
           bombTitle: 'Time Bomb',
           bombDesc: 'Pass one phone around: do the task on screen, hand it on — whoever holds it when it blows loses.',
           bombTag: 'Quick icebreaker',
-          happySecTitle: 'Interactive message sharing',
-          happySecDesc: 'A new way to share a message: you speak as usual, and at each turning point the screen becomes an interactive page everyone joins from their phone.',
           happyTitle: 'Happiness Simulator',
-          happyLead: 'Happiness isn’t a score. But if it were, what would you give yourself?',
-          happyDesc: 'A seven-level interactive message for small groups. The host leads on a big screen while everyone bids, votes and chooses on their phone — watching life push their happiness score around, and the line underneath that only grows.',
-          happyMeta: ['7 levels · 20–25 min each', 'Big screen + one phone each', 'Needs a host', 'Traditional Chinese only'],
-          happyCta: 'See the seven levels',
-          happyWeeks: ['True Happiness', 'The Truth Revealed', 'Superstar of the Ages', 'Happiness Connected', 'When God Knocks', 'Victory of the Cross', 'Release and Freedom'],
+          happyDesc: 'A seven-level interactive message: the host leads on a big screen, everyone joins by phone. Traditional Chinese only.',
+          happyTag: 'Interactive message',
           seoTitle: 'Icebreaker Games Toolbox | Play on Any Phone, No App Needed',
           seoDesc: 'Stop scrolling through “top 10 icebreaker” lists — every game here opens in a phone browser and starts right away. Time Bomb, Happy Bingo, This or That, Buzzer Game and Avalon Voice Narrator. No app download, no account. Made for small groups, welcome nights, team socials and classroom warm-ups. More on the way.',
         },
@@ -744,14 +672,9 @@
           bombTitle: '時限爆弾',
           bombDesc: 'スマホ1台を回して、出たお題をやったら次の人へ。爆発したときに持っていた人の負け。',
           bombTag: 'さくっとアイスブレイク',
-          happySecTitle: 'インタラクティブなメッセージ',
-          happySecDesc: 'メッセージはいつも通りに語り、転換点で画面がインタラクティブなページに変わって、全員がスマホで参加する新しい分かち合いの形。',
           happyTitle: '幸福シミュレーター',
-          happyLead: '幸せは点数じゃない。でも、もし点数だったら、自分に何点をつけますか？',
-          happyDesc: '小グループのための全7回のインタラクティブなメッセージ。司会者が大画面で進行し、みんなはスマホで入札・投票・選択。人生に揺さぶられる幸福度と、その下でただ伸び続けるもう一本の線を見つめます。',
-          happyMeta: ['全7回 · 各20〜25分', '大画面＋一人一台のスマホ', '司会者が必要', '繁体字中国語のみ'],
-          happyCta: '7つのステージを見る',
-          happyWeeks: ['本当の幸せ', '真相', '時代のスーパースター', '幸せのつながり', '神様がノックするとき', '十字架の勝利', '解放と自由'],
+          happyDesc: '全7回のインタラクティブなメッセージ。司会者が大画面で進行し、全員スマホで参加。繁体字中国語のみ。',
+          happyTag: 'インタラクティブなメッセージ',
           seoTitle: 'アイスブレイクゲーム集｜スマホで開くだけ、登録不要',
           seoDesc: '「アイスブレイク おすすめ」の記事を何本も読まなくて大丈夫。ここにあるのは全部、スマホのブラウザで開いた瞬間に始められるものです。時限爆弾、ハッピービンゴ、どっち派？、早押しゲーム、アヴァロン音声進行。アプリのダウンロードも会員登録も不要。小グループの集まり、新歓、社内の懇親会、授業の導入に。随時追加中。',
         },
@@ -773,14 +696,9 @@
           bombTitle: '시한폭탄',
           bombDesc: '휴대폰 한 대를 돌리며 화면에 뜬 미션을 하고 다음 사람에게. 터질 때 들고 있으면 집니다.',
           bombTag: '빠른 아이스브레이킹',
-          happySecTitle: '인터랙티브 메시지 나눔',
-          happySecDesc: '메시지는 그대로 전하고, 전환점마다 화면이 인터랙티브 페이지로 바뀌어 모두가 휴대폰으로 참여하는 새로운 나눔 방식.',
           happyTitle: '행복 시뮬레이터',
-          happyLead: '행복은 점수가 아닙니다. 하지만 만약 점수라면, 스스로에게 몇 점을 주시겠어요?',
-          happyDesc: '소그룹을 위한 7단계 인터랙티브 메시지. 진행자가 큰 화면으로 이끌고, 모두 휴대폰으로 입찰하고 투표하고 선택합니다. 삶에 이리저리 흔들리는 행복 지수와, 그 아래에서 자라기만 하는 또 하나의 선을 지켜보세요.',
-          happyMeta: ['7단계 · 단계별 20–25분', '큰 화면 + 1인 1휴대폰', '진행자 필요', '번체 중국어만 지원'],
-          happyCta: '7단계 보기',
-          happyWeeks: ['진정한 행복', '진실이 밝혀지다', '시대의 슈퍼스타', '행복 연결', '하나님이 문을 두드릴 때', '십자가의 승리', '해방과 자유'],
+          happyDesc: '7단계 인터랙티브 메시지. 진행자가 큰 화면으로 이끌고 모두 휴대폰으로 참여합니다. 번체 중국어만 지원.',
+          happyTag: '인터랙티브 메시지',
           seoTitle: '아이스브레이킹 게임 모음 | 휴대폰으로 열면 바로, 설치·가입 없음',
           seoDesc: '「아이스브레이킹 게임 추천」 글을 여러 편 읽을 필요 없습니다. 여기 있는 건 전부 휴대폰 브라우저에서 열면 바로 시작되는 것들입니다. 시한폭탄, 해피 빙고, 이거 아니면 저거, 버저 게임, 아발론 음성 진행. 앱 설치도 회원가입도 필요 없어요. 소그룹 모임, 신입 환영회, 회사 워크숍, 수업 아이스브레이킹에 맞춰 만들었고 계속 추가됩니다.',
         },
@@ -802,14 +720,9 @@
           bombTitle: 'Zeitbombe',
           bombDesc: 'Ein Handy geht reihum: Aufgabe erledigen, weitergeben — wer es beim Knall hält, verliert.',
           bombTag: 'Schnelles Kennenlernen',
-          happySecTitle: 'Interaktive Botschaft',
-          happySecDesc: 'Eine neue Art, eine Botschaft zu teilen: Du sprichst wie gewohnt, und an jedem Wendepunkt wird der Bildschirm interaktiv – alle machen mit dem Handy mit.',
-          happyTitle: 'Glückssimulator',
-          happyLead: 'Glück ist keine Punktzahl. Aber wenn doch – wie viele Punkte würdest du dir geben?',
-          happyDesc: 'Eine interaktive Botschaft in sieben Stufen für Kleingruppen. Die Leitung führt über den großen Bildschirm, alle bieten, stimmen ab und entscheiden am Handy – und sehen, wie das Leben ihren Glückswert hin und her schiebt, während die Linie darunter nur wächst.',
-          happyMeta: ['7 Stufen · je 20–25 Min.', 'Großer Bildschirm + ein Handy pro Person', 'Braucht eine Leitung', 'Nur auf traditionellem Chinesisch'],
-          happyCta: 'Die sieben Stufen ansehen',
-          happyWeeks: ['Wahres Glück', 'Die Wahrheit kommt ans Licht', 'Superstar aller Zeiten', 'Glück verbunden', 'Wenn Gott anklopft', 'Der Sieg des Kreuzes', 'Befreiung und Freiheit'],
+          happyTitle: 'Glücks­simulator', // 軟連字號：卡片右上角有圖，一個長字擠不下時才斷成 Glücks-/simulator
+          happyDesc: 'Interaktive Botschaft in sieben Stufen: Die Leitung führt am großen Bildschirm, alle machen am Handy mit. Nur auf traditionellem Chinesisch.',
+          happyTag: 'Interaktive Botschaft',
           seoTitle: 'Eisbrecher-Spiele fürs Handy | ohne App, ohne Anmeldung',
           seoDesc: 'Keine „Top 10 Eisbrecher“-Listen mehr durchlesen — hier lässt sich jedes Spiel direkt im Handy-Browser starten. Zeitbombe, Happy Bingo, Dies oder das, Buzzer-Spiel und Avalon Sprachassistent. Kein Download, kein Konto. Gemacht für Kleingruppen, Willkommensabende, Team-Events und den Unterricht. Wird laufend erweitert.',
         },
@@ -831,14 +744,9 @@
           bombTitle: 'Bombe à retardement',
           bombDesc: 'Un seul téléphone circule : fais le défi affiché et passe-le ; celui qui l’a quand ça explose a perdu.',
           bombTag: 'Brise-glace express',
-          happySecTitle: 'Message interactif',
-          happySecDesc: 'Une nouvelle façon de partager un message : vous parlez comme d’habitude et, à chaque tournant, l’écran devient une page interactive à laquelle chacun participe depuis son téléphone.',
           happyTitle: 'Simulateur de bonheur',
-          happyLead: 'Le bonheur n’est pas une note. Mais si c’en était une, combien vous donneriez-vous ?',
-          happyDesc: 'Un message interactif en sept étapes pour les petits groupes. L’animateur guide sur grand écran, chacun enchérit, vote et choisit sur son téléphone — et voit la vie bousculer son indice de bonheur, pendant que la ligne du dessous ne fait que grandir.',
-          happyMeta: ['7 étapes · 20–25 min chacune', 'Grand écran + un téléphone chacun', 'Un animateur est nécessaire', 'En chinois traditionnel uniquement'],
-          happyCta: 'Voir les sept étapes',
-          happyWeeks: ['Le vrai bonheur', 'La vérité éclate', 'La superstar des siècles', 'Bonheur connecté', 'Quand Dieu frappe à la porte', 'La victoire de la croix', 'Libération et liberté'],
+          happyDesc: 'Un message interactif en sept étapes : l’animateur guide sur grand écran, chacun participe depuis son téléphone. En chinois traditionnel uniquement.',
+          happyTag: 'Message interactif',
           seoTitle: 'Jeux brise-glace sur mobile | sans appli ni inscription',
           seoDesc: 'Plus besoin d’enchaîner les articles « top 10 des brise-glace » : ici, chaque jeu s’ouvre dans le navigateur du téléphone et démarre tout de suite. Bombe à retardement, Happy Bingo, Ceci ou cela, Jeu de buzzer et Narrateur vocal Avalon. Sans téléchargement ni compte. Pensé pour les petits groupes, les soirées d’accueil, les afterworks et les classes. Enrichi régulièrement.',
         },
@@ -860,14 +768,9 @@
           bombTitle: 'Bomba de tiempo',
           bombDesc: 'Se pasa un solo móvil: haz la prueba de la pantalla y pásalo; quien lo tenga al explotar, pierde.',
           bombTag: 'Rompehielos rápido',
-          happySecTitle: 'Mensaje interactivo',
-          happySecDesc: 'Una nueva forma de compartir un mensaje: hablas como siempre y, en cada punto de giro, la pantalla se vuelve una página interactiva en la que todos participan desde el móvil.',
           happyTitle: 'Simulador de felicidad',
-          happyLead: 'La felicidad no es una puntuación. Pero si lo fuera, ¿cuánto te darías?',
-          happyDesc: 'Un mensaje interactivo en siete niveles para grupos pequeños. Quien dirige lo lleva en la pantalla grande y todos pujan, votan y eligen desde el móvil, viendo cómo la vida zarandea su índice de felicidad mientras la línea de abajo solo crece.',
-          happyMeta: ['7 niveles · 20–25 min cada uno', 'Pantalla grande + un móvil por persona', 'Necesita a alguien que dirija', 'Solo en chino tradicional'],
-          happyCta: 'Ver los siete niveles',
-          happyWeeks: ['La verdadera felicidad', 'La verdad sale a la luz', 'La superestrella de los siglos', 'Felicidad conectada', 'Cuando Dios llama a la puerta', 'La victoria de la cruz', 'Liberación y libertad'],
+          happyDesc: 'Un mensaje interactivo en siete niveles: quien dirige usa la pantalla grande y todos participan desde el móvil. Solo en chino tradicional.',
+          happyTag: 'Mensaje interactivo',
           seoTitle: 'Juegos rompehielos para el móvil | sin app ni registro',
           seoDesc: 'Deja de leer listas de «los 10 mejores rompehielos»: aquí cada juego se abre en el navegador del móvil y empieza al momento. Bomba de tiempo, Happy Bingo, Esto o aquello, Juego de timbre y Narrador de voz de Avalon. Sin descargas ni cuentas. Pensado para grupos pequeños, bienvenidas, quedadas de equipo y clases. Se amplía continuamente.',
         },
@@ -889,14 +792,9 @@
           bombTitle: '定时炸弹',
           bombDesc: '一台手机传着玩，屏幕出一题做完就传给下一个人，炸在谁手上谁就输。',
           bombTag: '快速破冰',
-          happySecTitle: '互动信息分享',
-          happySecDesc: '一种新的分享方式：信息照讲，讲到转折处画面跳成互动页，全场拿手机一起参与。',
           happyTitle: '幸福模拟器',
-          happyLead: '幸福不是一个分数。但如果它是，你会给自己打几分？',
-          happyDesc: '为小组聚会设计的七关互动信息。主持人用大屏幕带，每个人拿手机拍卖、投票、做选择，看着自己的幸福指数被生活推来推去——还有底下那条只会往上长的线。',
-          happyMeta: ['七关 · 每关 20–25 分钟', '大屏幕＋每人一部手机', '需要一位主持人', '仅提供繁体中文'],
-          happyCta: '看七关',
-          happyWeeks: ['真幸福', '真相大白', '万世巨星', '幸福连线', '当上帝来敲门', '十字架的胜利', '释放与自由'],
+          happyDesc: '七关互动信息，主持人用大屏幕带，全场拿手机一起参与。仅提供繁体中文。',
+          happyTag: '互动信息分享',
           seoTitle: '破冰游戏工具箱｜手机打开就能玩，现场免安装免注册',
           seoDesc: '找破冰游戏不用再读一篇又一篇的推荐文章——这里每一个都是打开手机就能直接玩的工具。定时炸弹、幸福宾果、喜好二选一、抢答游戏、阿瓦隆语音主持，免下载 App、免注册账号。适合小组聚会、新生迎新、公司团建与课堂破冰，持续新增中。',
         },
@@ -962,39 +860,6 @@
         });
       }
 
-      /*
-       * 互動信息分享那一塊。連結永遠指到 /happiness/zh-TW/——它只有繁體中文，
-       * 其他語言的文案裡會標明這件事（happyMeta 最後一項）。
-       * 清單用 DOM 節點拼，理由同 renderArticle。
-       */
-      function renderHappy(s) {
-        document.getElementById('happy-sec-title').textContent = s.happySecTitle;
-        document.getElementById('happy-sec-desc').textContent = s.happySecDesc;
-        document.getElementById('happy-title').textContent = s.happyTitle;
-        document.getElementById('happy-lead').textContent = s.happyLead;
-        document.getElementById('happy-desc').textContent = s.happyDesc;
-        document.getElementById('happy-cta').textContent = s.happyCta;
-
-        var meta = document.getElementById('happy-meta');
-        meta.textContent = '';
-        s.happyMeta.forEach(function (text) {
-          var li = document.createElement('li');
-          li.textContent = text;
-          meta.appendChild(li);
-        });
-
-        var weeks = document.getElementById('happy-weeks');
-        weeks.textContent = '';
-        s.happyWeeks.forEach(function (name, index) {
-          var li = document.createElement('li');
-          var num = document.createElement('b');
-          num.textContent = 'LV0' + (index + 1);
-          li.appendChild(num);
-          li.appendChild(document.createTextNode(name));
-          weeks.appendChild(li);
-        });
-      }
-
       function renderForLang(lang) {
         document.documentElement.lang = lang;
 
@@ -1023,7 +888,10 @@
         document.getElementById('bomb-title').textContent = s.bombTitle;
         document.getElementById('bomb-desc').textContent = s.bombDesc;
         document.getElementById('bomb-tag').textContent = s.bombTag;
-        renderHappy(s);
+        // 幸福模擬器只有繁體中文，每個語言都連到 /happiness/zh-TW/（index.html 裡已經寫死）
+        document.getElementById('happy-title').textContent = s.happyTitle;
+        document.getElementById('happy-desc').textContent = s.happyDesc;
+        document.getElementById('happy-tag').textContent = s.happyTag;
         renderArticle(s.homeArticle);
 
         // 依語言更新 title / description / OG 標籤，而不是永遠停留在寫死的預設值

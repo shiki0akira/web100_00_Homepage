@@ -76,7 +76,7 @@ function jsonLd(s, lang, url) {
     { name: s.bingoTitle, desc: s.bingoDesc, path: `/bingo/${lang}/` },
     { name: s.bombTitle, desc: s.bombDesc, path: `/bomb/${lang}/` },
     // 只有繁體中文，每個語言都指到同一頁
-    { name: s.happyTitle, desc: s.happyDesc, path: '/happiness/zh-TW/' },
+    { name: s.happyTitle.replace(/­/g, ''), desc: s.happyDesc, path: '/happiness/zh-TW/' },
   ];
 
   const data = {
@@ -173,15 +173,10 @@ function render(lang) {
       [/(<a class="card" id="bingo-card" href=")[^"]*(")/, `$1/bingo/${lang}/$2`],
       // 定時炸彈同樣帶尾斜線
       [/(<a class="card" id="bomb-card" href=")[^"]*(")/, `$1/bomb/${lang}/$2`],
-      // 互動信息分享（幸福模擬器）。連結固定是 /happiness/zh-TW/，index.html 裡已經寫死，不用換
-      fill('h2', 'happy-sec-title', s.happySecTitle),
+      // 幸福模擬器只有繁體中文，連結固定是 /happiness/zh-TW/，index.html 裡已經寫死，不用換
       fill('h3', 'happy-title', s.happyTitle),
-      [/(<p class="special-desc" id="happy-sec-desc">)(<\/p>)/, `$1${esc(s.happySecDesc)}$2`],
-      [/(<p class="happy-lead" id="happy-lead">)(<\/p>)/, `$1${esc(s.happyLead)}$2`],
-      [/(<p class="happy-desc" id="happy-desc">)(<\/p>)/, `$1${esc(s.happyDesc)}$2`],
-      [/(<span id="happy-cta">)(<\/span>)/, `$1${esc(s.happyCta)}$2`],
-      [/(<ul class="happy-meta" id="happy-meta">)(<\/ul>)/, `$1${s.happyMeta.map((t) => `<li>${esc(t)}</li>`).join('')}$2`],
-      [/(<ol class="happy-weeks" id="happy-weeks">)(<\/ol>)/, `$1${s.happyWeeks.map((t, i) => `<li><b>LV0${i + 1}</b>${esc(t)}</li>`).join('')}$2`],
+      fill('p', 'happy-desc', s.happyDesc),
+      [/(<span class="tag" id="happy-tag">)(<\/span>)/, `$1${esc(s.happyTag)}$2`],
       // 說明長文。只有部分語言有（目前 zh-TW），沒有的語言這個容器維持空的
       [/(<div class="article" id="home-article">)(<\/div>)/, `$1${articleHtml(s.homeArticle)}$2`],
       // 結構化資料：宣告這是一個「工具集合」而不是一篇文章
